@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cardviewRadius">10dp</dimen>
+
+
+    <dimen name="homePageTextSize">20sp</dimen>
+    <dimen name="topNumberTextSize">20sp</dimen>
+
+    <dimen name="newLeadMarginBottom">15dp</dimen>
+    <dimen name="newLeadEditTextSize">16sp</dimen>
+
+    <dimen name="information_page_icon_height">100dp</dimen>
+    <dimen name="information_page_text_size">16sp</dimen>
+
+    <dimen name="business_page_icon_height">70dp</dimen>
+    <dimen name="business_page_text_size">12sp</dimen>
+
+
+</resources>
