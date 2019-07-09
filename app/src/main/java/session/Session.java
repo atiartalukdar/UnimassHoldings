@@ -16,7 +16,7 @@ public class Session {
 
     private static final String PREFS_NAME = "preferenceName";
     private static final String key_login_password = "loginPassword";
-    private static final String key_login_time = "sessionLoginTime";
+    private static final String key_user_role = "userRole";
     private static final String key_login_data = "sessionLoginData";
     private static final String key_login_isLoggedIn = "sessionLoginIsLoggedIn";
 
@@ -54,13 +54,14 @@ public class Session {
     //============================  ##Session Data ##  ===========================//
 
     // public methods
-    public static boolean createSeassion(String password, LoginData.GetData loginData){
+    public static boolean createSeassion(String password, String role, LoginData.GetData loginData){
         SharedPreferences settings = MyApplication.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         Gson gson = new Gson();
         String json = gson.toJson(loginData);
         editor.putString(key_login_data, json);
         editor.putString(key_login_password,password);
+        editor.putString(key_user_role,role);
         editor.putString(key_login_isLoggedIn, "true");
         return editor.commit();
     }
@@ -92,6 +93,12 @@ public class Session {
         SharedPreferences settings = MyApplication.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String password = settings.getString(key_login_password, "");
         return password;
+    }
+
+    public static String getUserRole(){
+        SharedPreferences settings = MyApplication.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String role = settings.getString(key_user_role, "");
+        return role;
     }
 
     public static void clearSession(){

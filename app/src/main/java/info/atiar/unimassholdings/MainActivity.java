@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void signin(View view) {
 
-        if (_email.getText().toString().trim().equals("sshalehin@gmail.com")){
+        if (_email.getText().toString().trim().equals("sshalehin@gmail.com")||_email.getText().toString().trim().equals("swajan.talukdar@gmail.com")){
             userRole = "admin";
         }else {
             userRole = "agent";
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (response.isSuccessful()){
                         LoginData.GetData g = response.body().getUserdata();
-                        Session.createSeassion(_password.getText().toString(), g);
+                        Session.createSeassion(_password.getText().toString(),userRole, g);
                         Log.e(TAG, g.toString());
 
                         startActivity(new Intent(MainActivity.this,HomePage.class));
