@@ -81,11 +81,11 @@ public class Session {
         return isL;
     }
 
-    public static LoginData getSeassionData(){
+    public static LoginData.GetData getSeassionData(){
         SharedPreferences settings = MyApplication.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = settings.getString(key_login_data, "");
-        LoginData obj = gson.fromJson(json, LoginData.class);
+        LoginData.GetData obj = gson.fromJson(json, LoginData.GetData.class);
         return obj;
     }
 

@@ -3,7 +3,6 @@ package info.atiar.unimassholdings.dataModel;
 /**
  * Created by Atiar Talukdar on 7/9/2019.
  */
-
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -58,16 +57,16 @@ public class ClientBox {
         private String contactNo;
         @SerializedName("email")
         @Expose
-        private Object email;
+        private String email;
         @SerializedName("profession")
         @Expose
-        private Object profession;
+        private String profession;
         @SerializedName("designation")
         @Expose
-        private Object designation;
+        private String designation;
         @SerializedName("business_address")
         @Expose
-        private Object businessAddress;
+        private String businessAddress;
         @SerializedName("progress_status")
         @Expose
         private String progressStatus;
@@ -176,35 +175,35 @@ public class ClientBox {
             this.contactNo = contactNo;
         }
 
-        public Object getEmail() {
+        public String getEmail() {
             return email;
         }
 
-        public void setEmail(Object email) {
+        public void setEmail(String email) {
             this.email = email;
         }
 
-        public Object getProfession() {
+        public String getProfession() {
             return profession;
         }
 
-        public void setProfession(Object profession) {
+        public void setProfession(String profession) {
             this.profession = profession;
         }
 
-        public Object getDesignation() {
+        public String getDesignation() {
             return designation;
         }
 
-        public void setDesignation(Object designation) {
+        public void setDesignation(String designation) {
             this.designation = designation;
         }
 
-        public Object getBusinessAddress() {
+        public String getBusinessAddress() {
             return businessAddress;
         }
 
-        public void setBusinessAddress(Object businessAddress) {
+        public void setBusinessAddress(String businessAddress) {
             this.businessAddress = businessAddress;
         }
 

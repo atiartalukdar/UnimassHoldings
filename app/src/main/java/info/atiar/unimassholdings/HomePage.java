@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
+import bp.ObjectBox;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.atiar.unimassholdings.addNewClients.AddNewClients;
@@ -17,6 +20,9 @@ import info.atiar.unimassholdings.clients.ClientsList;
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import info.atiar.unimassholdings.dataModel.LoginData;
 import info.atiar.unimassholdings.schedule.ScheduleLists;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
+import objectBox.InitialClientInfoBox;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -39,6 +45,8 @@ public class HomePage extends AppCompatActivity {
     Retrofit retrofit;
     APIInterface apiInterface;
 
+    Box<InitialClientInfoBox> clientInfoBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,14 +55,9 @@ public class HomePage extends AppCompatActivity {
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
         initialize();
+        clientInfoBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);
 
 
-        _allClients.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomePage.this, ClientsList.class));
-            }
-        });
 
 
         _scheduleLists.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +75,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        allOnclickListener();
         getAllClients();
     }
 
@@ -83,7 +87,7 @@ public class HomePage extends AppCompatActivity {
         progressDialog.show();
 
 
-        Call call = apiInterface.getAllClients(Session.getSeassionData().getUserdata().getEmail(),Session.getPassword(),Session.getUserRole());
+        Call call = apiInterface.getAllClients(Session.getSeassionData().getEmail(),Session.getPassword(),Session.getUserRole());
 
         call.enqueue(new Callback<ClientBox>() {
             @Override
@@ -93,13 +97,30 @@ public class HomePage extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if (response.isSuccessful()){
-                    ClientBox.GeneralInfo data = (ClientBox.GeneralInfo) response.body().getGeneralInfo();
-                    switch (data.getProgressStatus().trim()){
-                        case "0" : client0++; break;
-                        case "20" : client20++; break;
-                        case "40" : client40++; break;
-                        case "80" : client80++; break;
-                        case "90" : client90++; break;
+                    clientInfoBox.removeAll();
+                    List<ClientBox.GeneralInfo> clientLists = response.body().getGeneralInfo();
+                    for (ClientBox.GeneralInfo data:clientLists) {
+                        InitialClientInfoBox i = new InitialClientInfoBox(data);
+                        clientInfoBox.put(i);
+
+                        switch (data.getProgressStatus().trim()) {
+                            case "0":
+                                client0++;
+                                break;
+                            case "20":
+                                client20++;
+                                break;
+                            case "40":
+                                client40++;
+                                break;
+                            case "80":
+                                client80++;
+                                break;
+                            case "90":
+                                client90++;
+                                break;
+                        }
+
                     }
                     //Log.e(TAG, g.toString());
                     _client0.setText("0% client: "+client0);
@@ -127,5 +148,65 @@ public class HomePage extends AppCompatActivity {
         client40 = 0;
         client80 = 0;
         client90 = 0;
+    }
+
+    private void allOnclickListener(){
+
+        _allClients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ClientsList.class);
+                intent.putExtra("client", "all");
+                startActivity(intent);
+            }
+        });
+
+        _client0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ClientsList.class);
+                intent.putExtra("client", "0");
+                startActivity(intent);
+            }
+        });
+
+        _client20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ClientsList.class);
+                intent.putExtra("client", "20");
+                startActivity(intent);
+            }
+        });
+
+        _client40.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ClientsList.class);
+                intent.putExtra("client", "40");
+                startActivity(intent);
+            }
+        });
+
+        _client80.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ClientsList.class);
+                intent.putExtra("client", "80");
+                startActivity(intent);
+            }
+        });
+
+        _client90.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ClientsList.class);
+                intent.putExtra("client", "90");
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 }
