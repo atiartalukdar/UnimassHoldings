@@ -13,16 +13,19 @@ import android.widget.Toast;
 import java.util.List;
 
 import bp.ObjectBox;
+import bp.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import info.atiar.unimassholdings.addNewClients.AddNewClients;
 import info.atiar.unimassholdings.clients.ClientsList;
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import info.atiar.unimassholdings.dataModel.LoginData;
+import info.atiar.unimassholdings.dataModel.ScheduleDM;
 import info.atiar.unimassholdings.schedule.ScheduleLists;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import objectBox.InitialClientInfoBox;
+import objectBox.ScheduleBox;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -32,6 +35,8 @@ import retrofit2.Retrofit;
 import session.Session;
 
 public class HomePage extends AppCompatActivity {
+    private final String TAG = getClass().getName() + " Atiar - ";
+
     @BindView(R.id.allClients)      TextView  _allClients;
     @BindView(R.id.scheduleList)    TextView  _scheduleLists;
     @BindView(R.id.addNewClients)    LinearLayout _addNewClients;
@@ -40,12 +45,20 @@ public class HomePage extends AppCompatActivity {
     @BindView(R.id.client40_tv)    TextView  _client40;
     @BindView(R.id.client80_tv)    TextView  _client80;
     @BindView(R.id.client90_tv)    TextView  _client90;
+
+    @BindView(R.id.schedule_today)    TextView  _today;
+    @BindView(R.id.schedule_tomorrow)    TextView  _tomorrow;
+    @BindView(R.id.schedule_week)    TextView  _week;
+    @BindView(R.id.schedule_month)    TextView  _month;
+
     int client0,client20,client40,client80,client90;
+    int today,tomorrow,week,month;
 
     Retrofit retrofit;
     APIInterface apiInterface;
 
     Box<InitialClientInfoBox> clientInfoBox;
+    Box<ScheduleBox> scheduleBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +69,11 @@ public class HomePage extends AppCompatActivity {
         apiInterface = retrofit.create(APIInterface.class);
         initialize();
         clientInfoBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);
+        scheduleBox = ObjectBox.get().boxFor(ScheduleBox.class);
 
 
 
 
-        _scheduleLists.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomePage.this, ScheduleLists.class));
-            }
-        });
 
 
         _addNewClients.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +138,73 @@ public class HomePage extends AppCompatActivity {
                     _client90.setText("90% client: "+client90);
                 }
 
+                getAllSchedule();
+
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+
+        });
+
+    }
+
+    private void getAllSchedule() {
+        final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading Schedule Data...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
+        Call call = apiInterface.getSchedule(Session.getSeassionData().getEmail(),Session.getPassword(),Session.getUserRole(),APIInterface.ALL);
+
+        call.enqueue(new Callback<ScheduleDM>() {
+            @Override
+            public void onResponse(Call<ScheduleDM> call, Response<ScheduleDM> response) {
+                /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
+                 */
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+
+                    if (!response.body().getScheduleType().equals("Currently No Schedule")){
+                        scheduleBox.removeAll();
+
+                        List<ScheduleDM.Schedule> scheduleLists = response.body().getSchedules();
+
+                        for (ScheduleDM.Schedule data : scheduleLists) {
+                            ScheduleBox i = new ScheduleBox(data);
+                            scheduleBox.put(i);
+                            try {
+                                int dif = TimeUtils.getDifferenceInDays(data.getDate());
+                                Log.e(TAG, dif + "");
+
+                                if ( dif == 0){
+                                    today++;
+                                }if (dif == 1){
+                                    tomorrow++;
+                                }if (dif <= 7){
+                                    week++;
+                                }if (dif <=30){
+                                    month++;
+                                }
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+
+                    //Log.e(TAG, g.toString());
+                    _today.setText("Today: "+today);
+                    _tomorrow.setText("Tomorrow: "+tomorrow);
+                    _week.setText("Week: "+week);
+                    _month.setText("Month: "+month);
+                }
+
             }
 
             @Override
@@ -148,6 +223,11 @@ public class HomePage extends AppCompatActivity {
         client40 = 0;
         client80 = 0;
         client90 = 0;
+
+        today = 0;
+        tomorrow = 0;
+        week = 0;
+        month = 0;
     }
 
     private void allOnclickListener(){
@@ -206,6 +286,52 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+
+        _today.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ScheduleLists.class);
+                intent.putExtra("scheduleRange", APIInterface.TODAY);
+                startActivity(intent);
+            }
+        });
+
+        _tomorrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ScheduleLists.class);
+                intent.putExtra("scheduleRange", APIInterface.TOMORROW);
+                startActivity(intent);
+            }
+        });
+
+        _week.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ScheduleLists.class);
+                intent.putExtra("scheduleRange", APIInterface.WEEK);
+                startActivity(intent);
+            }
+        });
+
+        _month.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ScheduleLists.class);
+                intent.putExtra("scheduleRange", APIInterface.MONTH);
+                startActivity(intent);
+            }
+        });
+
+
+        _scheduleLists.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ScheduleLists.class);
+                intent.putExtra("scheduleRange", APIInterface.ALL);
+                startActivity(intent);
+            }
+        });
 
 
     }

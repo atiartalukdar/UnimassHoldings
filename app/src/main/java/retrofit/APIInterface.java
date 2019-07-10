@@ -3,6 +3,7 @@ package retrofit;
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import info.atiar.unimassholdings.dataModel.ClientProfileBox;
 import info.atiar.unimassholdings.dataModel.LoginData;
+import info.atiar.unimassholdings.dataModel.ScheduleDM;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -40,6 +41,19 @@ public interface APIInterface {
                                   @Field("password") String password,
                                   @Field("role") String role,
                                   @Field("id") String id);
+
+    public static String TODAY = "today";
+    public static String TOMORROW = "tomorrow";
+    public static String WEEK = "week";
+    public static String MONTH = "month";
+    public static String ALL = "all";
+
+    @POST("get_specific_schedules")
+    @FormUrlEncoded
+    Call<ScheduleDM> getSchedule(@Field("email") String email,
+                                 @Field("password") String password,
+                                 @Field("role") String role,
+                                 @Field("range") String range);
 
 
     @POST("comm_records_specific")

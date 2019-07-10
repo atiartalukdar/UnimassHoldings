@@ -36,13 +36,14 @@ import session.Session;
 public class ClientsList extends AppCompatActivity {
     private final String TAG = getClass().getName() + " Atiar - ";
 
-    @BindView(R.id.leadList)    ListView _clientList;
+    @BindView(R.id.leadList)
+    ListView _clientList;
 
     Retrofit retrofit;
     APIInterface apiInterface;
     ClientListAdapter adapter;
-     Box<InitialClientInfoBox> clientBox;
-     List<InitialClientInfoBox> clientList;
+    Box<InitialClientInfoBox> clientBox;
+    List<InitialClientInfoBox> clientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,21 +56,21 @@ public class ClientsList extends AppCompatActivity {
         clientBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);
 
         String dataToLoad = getIntent().getStringExtra("client");
-        switch (dataToLoad){
+        switch (dataToLoad) {
             case "0":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus,"0").build().find();
+                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "0").build().find();
                 break;
             case "20":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus,"20").build().find();
+                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "20").build().find();
                 break;
             case "40":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus,"40").build().find();
+                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "40").build().find();
                 break;
             case "80":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus,"80").build().find();
+                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "80").build().find();
                 break;
             case "90":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus,"90").build().find();
+                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "90").build().find();
                 break;
 
             case "all":
@@ -105,15 +106,15 @@ public class ClientsList extends AppCompatActivity {
                 List<InitialClientInfoBox> tripResults = new ArrayList<InitialClientInfoBox>();
                 for (InitialClientInfoBox x : clientBox.getAll()) {
 
-                    try{
-                        if (x.getLandownerAddress().equals(null) ||x.getLandownerAddress().equals("") ||x.getLandownerAddress() == null){
-                            if (x.getContactNo().contains(newText.toLowerCase())|| x.getLandownerName().contains(newText.toLowerCase()))
+                    try {
+                        if (x.getLandownerAddress().equals(null) || x.getLandownerAddress().equals("") || x.getLandownerAddress() == null) {
+                            if (x.getContactNo().contains(newText.toLowerCase()) || x.getLandownerName().contains(newText.toLowerCase()))
                                 tripResults.add(x);
-                        }else {
-                            if (x.getLandownerAddress().toLowerCase().contains(newText.toLowerCase()) || x.getContactNo().contains(newText.toLowerCase())|| x.getLandownerName().contains(newText.toLowerCase()))
+                        } else {
+                            if (x.getLandownerAddress().toLowerCase().contains(newText.toLowerCase()) || x.getContactNo().contains(newText.toLowerCase()) || x.getLandownerName().contains(newText.toLowerCase()))
                                 tripResults.add(x);
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -143,7 +144,7 @@ public class ClientsList extends AppCompatActivity {
             case R.id.app_bar_new_lead:
                 //startActivity(new Intent(ClientsList.this, AddNewLead.class));
                 //finish();
-                Toast.makeText(this, "Feature is comming soon, Please patients !!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Feature is comming soon, Please patients !!", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -157,46 +158,44 @@ public class ClientsList extends AppCompatActivity {
 
 
     private void loadListDataFromServer() {
-            final ProgressDialog progressDialog = new ProgressDialog(ClientsList.this);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Loading Client's Data...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+        final ProgressDialog progressDialog = new ProgressDialog(ClientsList.this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Loading Client's Data...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
 
-            Call call = apiInterface.getAllClients(Session.getSeassionData().getEmail(),Session.getPassword(),Session.getUserRole());
+        Call call = apiInterface.getAllClients(Session.getSeassionData().getEmail(), Session.getPassword(), Session.getUserRole());
 
-            call.enqueue(new Callback<ClientBox>() {
-                @Override
-                public void onResponse(Call<ClientBox> call, Response<ClientBox> response) {
-                    /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
-                     */
-                    progressDialog.dismiss();
+        call.enqueue(new Callback<ClientBox>() {
+            @Override
+            public void onResponse(Call<ClientBox> call, Response<ClientBox> response) {
+                /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
+                 */
+                progressDialog.dismiss();
 
-                    if (response.isSuccessful()){
-                        clientBox.removeAll();
+                if (response.isSuccessful()) {
+                    clientBox.removeAll();
 
-                        List<ClientBox.GeneralInfo> clientLists = response.body().getGeneralInfo();
-                        for (ClientBox.GeneralInfo data:clientLists) {
-                            InitialClientInfoBox i = new InitialClientInfoBox(data);
-                            clientBox.put(i);
-                        }
-
-                        getSupportActionBar().setTitle("Total Clients (" + clientBox.getAll().size() + ")");
-
+                    List<ClientBox.GeneralInfo> clientLists = response.body().getGeneralInfo();
+                    for (ClientBox.GeneralInfo data : clientLists) {
+                        InitialClientInfoBox i = new InitialClientInfoBox(data);
+                        clientBox.put(i);
                     }
 
+                    getSupportActionBar().setTitle("Total Clients (" + clientBox.getAll().size() + ")");
+
                 }
 
-                @Override
-                public void onFailure(Call call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
+            }
 
-            });
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
 
-
+        });
 
 
     }
