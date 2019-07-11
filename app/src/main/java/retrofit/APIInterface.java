@@ -2,6 +2,7 @@ package retrofit;
 
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import info.atiar.unimassholdings.dataModel.ClientProfileBox;
+import info.atiar.unimassholdings.dataModel.CommunicationDM;
 import info.atiar.unimassholdings.dataModel.LoginData;
 import info.atiar.unimassholdings.dataModel.ScheduleDM;
 import retrofit2.Call;
@@ -37,10 +38,11 @@ public interface APIInterface {
 
     @POST("comm_records_specific")
     @FormUrlEncoded
-    Call<ClientBox> getClientCommunicationRecords(@Field("email") String email,
-                                  @Field("password") String password,
-                                  @Field("role") String role,
-                                  @Field("id") String id);
+    Call<CommunicationDM> getClientCommunicationRecords(@Field("email") String email,
+                                                        @Field("password") String password,
+                                                        @Field("role") String role,
+                                                        @Field("id") String id);
+
 
     public static String TODAY = "today";
     public static String TOMORROW = "tomorrow";

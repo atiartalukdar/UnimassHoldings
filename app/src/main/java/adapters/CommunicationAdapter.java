@@ -16,23 +16,23 @@ import java.util.List;
 import bp.ObjectBox;
 import bp.Utils;
 import info.atiar.unimassholdings.R;
-import info.atiar.unimassholdings.dataModel.ClientBox;
 import io.objectbox.Box;
 import objectBox.InitialClientInfoBox;
 import objectBox.InitialClientInfoBox_;
 import objectBox.ScheduleBox;
+import objectBox.SpecificCommRecordBox;
 
 
-public class ScheduleAdapter extends BaseAdapter {
+public class CommunicationAdapter extends BaseAdapter {
     private Context context;
     private Activity activity;
     private LayoutInflater inflater;
-    private List<ScheduleBox> leadList;
+    private List<SpecificCommRecordBox> leadList;
     String api="";
     boolean isVerified = false;
     private final String TAG = getClass().getSimpleName() + " Atiar= ";
 
-    public ScheduleAdapter(Activity activity, List<ScheduleBox> leadList) {
+    public CommunicationAdapter(Activity activity, List<SpecificCommRecordBox> leadList) {
         this.activity = activity;
         this.leadList = leadList;
     }
@@ -58,13 +58,13 @@ public class ScheduleAdapter extends BaseAdapter {
         Box<InitialClientInfoBox> clientBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);;
 
         // getting lead data for the row
-        final ScheduleBox data = leadList.get(position);
+        final SpecificCommRecordBox data = leadList.get(position);
 
         if (inflater == null)
             inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.custom_schedule_list_item, null);
+            convertView = inflater.inflate(R.layout.custom_communication_list_item, null);
 
         InitialClientInfoBox i = clientBox.query().equal(InitialClientInfoBox_.clientID,Integer.parseInt(data.getGeneralInfosId())).build().findFirst();
         String mobileNumber = "", clientAddress = "", clientProgress = "";
@@ -81,10 +81,11 @@ public class ScheduleAdapter extends BaseAdapter {
         final TextView _phone = convertView.findViewById(R.id.custom_schedule_mobile);
         TextView _clientID = convertView.findViewById(R.id.custom_schedule_id);
         TextView _agent = convertView.findViewById(R.id.custom_schedule_agent);
-        TextView _address = convertView.findViewById(R.id.custom_schedule_address);
         TextView _progress = convertView.findViewById(R.id.custom_schedule_progress);
-        TextView _lastActionWithDate = convertView.findViewById(R.id.custom_schedule_last_action_with_date);
-        TextView _nextActionWithDate = convertView.findViewById(R.id.custom_schedule_next_action_with_date);
+
+        TextView _lastActionWithDate = convertView.findViewById(R.id.custom_schedule_address);
+        TextView _nextActionWithDate = convertView.findViewById(R.id.custom_schedule_last_action_with_date);
+        TextView _details = convertView.findViewById(R.id.custom_schedule_next_action_with_date);
         TextView _specialNote = convertView.findViewById(R.id.custom_schedule_special_note);
         TextView _specialNoteByAdmin = convertView.findViewById(R.id.custom_schedule_special_note_by_admin);
 
@@ -92,14 +93,13 @@ public class ScheduleAdapter extends BaseAdapter {
         _name.setText(data.getLName());
         _phone.setText(mobileNumber);
         _clientID.setText("Client ID: " + data.getGeneralInfosId());
-        _agent.setText("Agent: "+data.getByWhom());
-        _address.setText(clientAddress);
+        _agent.setText("By: "+data.getByWhom());
         _progress.setText(clientProgress+ "%");
-        _lastActionWithDate.setText("Last Action: "+data.getLastactionType() + "("+data.getLastactionDate()+")");
-        _nextActionWithDate.setText("Next Action: "+data.getActionType() + "("+data.getDate()+")");
+        _lastActionWithDate.setText("Last : " + data.getLocation() +" - " +data.getLastactionType() + "("+data.getLastactionDate()+")");
+        _nextActionWithDate.setText("Next : "+data.getActionType() + "("+data.getDate()+")");
+        _details.setText("Details: "+data.getDetails() );
         _specialNote.setText("Special Note: "+data.getSpecialNote() );
         _specialNoteByAdmin.setText("Remarks: "+data.getRemarks() );
-
 
 
         //Phone number clicked event
@@ -122,7 +122,7 @@ public class ScheduleAdapter extends BaseAdapter {
     }
 
     //To update the searchView items in TransportList Activity
-    public void update(List<ScheduleBox> resuls){
+    public void update(List<SpecificCommRecordBox> resuls){
         leadList = new ArrayList<>();
         leadList.addAll(resuls);
         notifyDataSetChanged();

@@ -42,6 +42,7 @@ public class ClientsList extends AppCompatActivity {
     Retrofit retrofit;
     APIInterface apiInterface;
     ClientListAdapter adapter;
+
     Box<InitialClientInfoBox> clientBox;
     List<InitialClientInfoBox> clientList;
 
@@ -51,6 +52,7 @@ public class ClientsList extends AppCompatActivity {
         setContentView(R.layout.activity_clients_list);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
         clientBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);
