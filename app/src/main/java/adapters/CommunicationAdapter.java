@@ -92,7 +92,7 @@ public class CommunicationAdapter extends BaseAdapter {
 
         _name.setText(data.getLName());
         _phone.setText(mobileNumber);
-        _clientID.setText("Client ID: " + data.getGeneralInfosId());
+        _clientID.setText("Record ID: " + data.getRecordID());
         _agent.setText("By: "+data.getByWhom());
         _progress.setText(clientProgress+ "%");
         _lastActionWithDate.setText("Last : " + data.getLocation() +" - " +data.getLastactionType() + "("+data.getLastactionDate()+")");

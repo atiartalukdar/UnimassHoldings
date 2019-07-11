@@ -25,6 +25,7 @@ import info.atiar.unimassholdings.schedule.ScheduleLists;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import objectBox.InitialClientInfoBox;
+import objectBox.InitialClientInfoBox_;
 import objectBox.ScheduleBox;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
@@ -67,10 +68,10 @@ public class HomePage extends AppCompatActivity {
         ButterKnife.bind(this);
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
-        initialize();
         clientInfoBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);
         scheduleBox = ObjectBox.get().boxFor(ScheduleBox.class);
 
+        initialize();
 
 
 
@@ -144,6 +145,7 @@ public class HomePage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call call, Throwable t) {
+                loadLocalData();
                 Toast.makeText(getApplicationContext(), "Server Error", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
@@ -219,15 +221,61 @@ public class HomePage extends AppCompatActivity {
 
     private void initialize(){
         client0 = 0;
-        client20 = 0;
-        client40 = 0;
-        client80 = 0;
-        client90 = 0;
+        client20 =0;
+        client40 =0;
+        client80 =0;
+        client90 =0;
 
         today = 0;
         tomorrow = 0;
         week = 0;
         month = 0;
+    }
+
+    private void loadLocalData(){
+        try{
+            client0 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "0").build().find().size();
+            client20 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "20").build().find().size();
+            client40 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "40").build().find().size();
+            client80 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "80").build().find().size();
+            client90 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "90").build().find().size();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+
+            //Log.e(TAG, g.toString());
+            _client0.setText("0% client: "+client0);
+            _client20.setText("20% client: "+client20);
+            _client40.setText("40% client: "+client40);
+            _client80.setText("80% client: "+client80);
+            _client90.setText("90% client: "+client90);
+        }
+
+        for (ScheduleBox s : scheduleBox.getAll()){
+            try {
+                int dif = TimeUtils.getDifferenceInDays(s.getDate());
+                Log.e(TAG, dif + "");
+
+                if ( dif == 0){
+                    today++;
+                }if (dif == 1){
+                    tomorrow++;
+                }if (dif <= 7){
+                    week++;
+                }if (dif <=30){
+                    month++;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+                //Log.e(TAG, g.toString());
+                _today.setText("Today: "+today);
+                _tomorrow.setText("Tomorrow: "+tomorrow);
+                _week.setText("Week: "+week);
+                _month.setText("Month: "+month);
+            }
+        }
     }
 
     private void allOnclickListener(){

@@ -26,6 +26,7 @@ import info.atiar.unimassholdings.dataModel.CommunicationDM;
 import io.objectbox.Box;
 import objectBox.InitialClientInfoBox;
 import objectBox.SpecificCommRecordBox;
+import objectBox.SpecificCommRecordBox_;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -67,8 +68,19 @@ public class CommunicationDetails extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_general_info, container, false);
         ListView _commListView = v.findViewById(R.id.communicationList);
-        adapter = new CommunicationAdapter(getActivity(), commList);
-        _commListView.setAdapter(adapter);
+
+        try{
+            commList = commBox.query().equal(SpecificCommRecordBox_.generalInfosId,((ClientDetails) getActivity()).getMember().getClientID()+"").build().find();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            adapter = new CommunicationAdapter(getActivity(), commList);
+            _commListView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+
+
+
         loadListDataFromServer();
 
         return v;
@@ -95,13 +107,14 @@ public class CommunicationDetails extends Fragment {
                 progressDialog.dismiss();
 
                 if (response.isSuccessful()) {
-                    commBox.removeAll();
                     commList.clear();
 
                     List<CommunicationDM.SpecificCommRecord> clientLists = response.body().getSpecificCommRecord();
                     for (CommunicationDM.SpecificCommRecord data : clientLists) {
                         SpecificCommRecordBox i = new SpecificCommRecordBox(data);
-                        commBox.put(i);
+                        if (!commBox.getAll().contains(i)){
+                            commBox.put(i);
+                        }
                         commList.add(i);
                     }
                     adapter.notifyDataSetChanged();
@@ -115,6 +128,7 @@ public class CommunicationDetails extends Fragment {
             public void onFailure(Call call, Throwable t) {
                 Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
+                adapter.notifyDataSetChanged();
             }
 
         });
@@ -122,4 +136,9 @@ public class CommunicationDetails extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }

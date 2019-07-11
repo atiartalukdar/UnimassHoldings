@@ -106,15 +106,23 @@ public class ClientsList extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<InitialClientInfoBox> tripResults = new ArrayList<InitialClientInfoBox>();
-                for (InitialClientInfoBox x : clientBox.getAll()) {
+                for (InitialClientInfoBox x : clientList) {
 
                     try {
                         if (x.getLandownerAddress().equals(null) || x.getLandownerAddress().equals("") || x.getLandownerAddress() == null) {
-                            if (x.getContactNo().contains(newText.toLowerCase()) || x.getLandownerName().contains(newText.toLowerCase()))
+                            if (x.getContactNo().toLowerCase().contains(newText.toLowerCase()) ||
+                                    x.getLandownerName().toLowerCase().trim().contains(newText.toLowerCase())||
+                                    x.getClientID().toString().toLowerCase().trim().contains(newText.toLowerCase())){
                                 tripResults.add(x);
+                            }
                         } else {
-                            if (x.getLandownerAddress().toLowerCase().contains(newText.toLowerCase()) || x.getContactNo().contains(newText.toLowerCase()) || x.getLandownerName().contains(newText.toLowerCase()))
+                            if (x.getLandownerAddress().toLowerCase().contains(newText.toLowerCase()) ||
+                                    x.getContactNo().trim().contains(newText.toLowerCase()) ||
+                                    x.getLandownerName().trim().toLowerCase().contains(newText.toLowerCase()) ||
+                                    x.getClientID().toString().trim().toLowerCase().contains(newText.toLowerCase())){
                                 tripResults.add(x);
+                            }
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

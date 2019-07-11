@@ -133,10 +133,11 @@ public class ScheduleLists extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 List<ScheduleBox> tripResults = new ArrayList<ScheduleBox>();
-                for (ScheduleBox x : scheduleBox.getAll()) {
+                for (ScheduleBox x : scheduleList) {
 
                     try {
-                            if (x.getByWhom().toLowerCase().contains(newText.toLowerCase()) || x.getLName().contains(newText.toLowerCase()) )
+                            if (x.getByWhom().toLowerCase().contains(newText.toLowerCase()) ||
+                                    x.getLName().toLowerCase().trim().contains(newText.toLowerCase()))
                                 tripResults.add(x);
 
                     } catch (Exception e) {

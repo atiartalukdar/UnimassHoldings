@@ -85,7 +85,7 @@ public class ClientListAdapter extends BaseAdapter {
         _phone.setText(data.getContactNo());
         _clientID.setText("Client ID: " + data.getClientID());
         _agent.setText("Agent: "+data.getAgentId());
-        _address.setText(data.getLandownerAddress());
+        _address.setText("Address: " + data.getLandownerAddress());
         _progress.setText(data.getProgressStatus() + "%");
 
 
