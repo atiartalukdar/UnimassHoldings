@@ -3,12 +3,14 @@ package objectBox;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
 @Entity
-public class InitialClientInfoBox {
+public class InitialClientInfoBox implements Serializable {
 
     @Id
     long id;
