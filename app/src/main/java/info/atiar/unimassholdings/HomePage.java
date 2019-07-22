@@ -40,7 +40,6 @@ public class HomePage extends AppCompatActivity {
 
     @BindView(R.id.allClients)      TextView  _allClients;
     @BindView(R.id.scheduleList)    TextView  _scheduleLists;
-    @BindView(R.id.addNewClients)    LinearLayout _addNewClients;
     @BindView(R.id.client0_tv)    TextView  _client0;
     @BindView(R.id.client20_tv)    TextView  _client20;
     @BindView(R.id.client40_tv)    TextView  _client40;
@@ -77,12 +76,12 @@ public class HomePage extends AppCompatActivity {
 
 
 
-        _addNewClients.setOnClickListener(new View.OnClickListener() {
+       /* _addNewClients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomePage.this, AddNewClients.class));
             }
-        });
+        });*/
 
         allOnclickListener();
         getAllClients();
