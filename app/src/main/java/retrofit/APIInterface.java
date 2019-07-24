@@ -1,12 +1,11 @@
 package retrofit;
 
 import info.atiar.unimassholdings.dataModel.ClientBox;
-import info.atiar.unimassholdings.dataModel.ClientProfileBox;
+import info.atiar.unimassholdings.dataModel.ClientProfileDM;
 import info.atiar.unimassholdings.dataModel.CommunicationDM;
 import info.atiar.unimassholdings.dataModel.LoginData;
 import info.atiar.unimassholdings.dataModel.ScheduleDM;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -30,10 +29,10 @@ public interface APIInterface {
 
     @POST("client_profile")
     @FormUrlEncoded
-    Call<ClientProfileBox> getClientProfile(@Field("email") String email,
-                                            @Field("password") String password,
-                                            @Field("role") String role,
-                                            @Field("id") String id);
+    Call<ClientProfileDM> getClientProfile(@Field("email") String email,
+                                           @Field("password") String password,
+                                           @Field("role") String role,
+                                           @Field("id") String id);
 
 
     @POST("comm_records_specific")

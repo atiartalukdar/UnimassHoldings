@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,15 +15,12 @@ import bp.ObjectBox;
 import bp.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import info.atiar.unimassholdings.addNewClients.AddNewClients;
 import info.atiar.unimassholdings.clients.ClientsList;
 import info.atiar.unimassholdings.dataModel.ClientBox;
-import info.atiar.unimassholdings.dataModel.LoginData;
 import info.atiar.unimassholdings.dataModel.ScheduleDM;
 import info.atiar.unimassholdings.schedule.ScheduleLists;
 import io.objectbox.Box;
-import io.objectbox.BoxStore;
-import objectBox.InitialClientInfoBox;
+import objectBox.ClientGeneralInfoBox;
 import objectBox.InitialClientInfoBox_;
 import objectBox.ScheduleBox;
 import retrofit.APIInterface;
@@ -57,7 +53,7 @@ public class HomePage extends AppCompatActivity {
     Retrofit retrofit;
     APIInterface apiInterface;
 
-    Box<InitialClientInfoBox> clientInfoBox;
+    Box<ClientGeneralInfoBox> clientInfoBox;
     Box<ScheduleBox> scheduleBox;
 
     @Override
@@ -67,7 +63,7 @@ public class HomePage extends AppCompatActivity {
         ButterKnife.bind(this);
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
-        clientInfoBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);
+        clientInfoBox = ObjectBox.get().boxFor(ClientGeneralInfoBox.class);
         scheduleBox = ObjectBox.get().boxFor(ScheduleBox.class);
 
         initialize();
@@ -108,7 +104,7 @@ public class HomePage extends AppCompatActivity {
                     clientInfoBox.removeAll();
                     List<ClientBox.GeneralInfo> clientLists = response.body().getGeneralInfo();
                     for (ClientBox.GeneralInfo data:clientLists) {
-                        InitialClientInfoBox i = new InitialClientInfoBox(data);
+                        ClientGeneralInfoBox i = new ClientGeneralInfoBox(data);
                         clientInfoBox.put(i);
 
                         switch (data.getProgressStatus().trim()) {

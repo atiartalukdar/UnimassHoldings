@@ -17,9 +17,8 @@ import bp.ObjectBox;
 import bp.Utils;
 import info.atiar.unimassholdings.R;
 import io.objectbox.Box;
-import objectBox.InitialClientInfoBox;
+import objectBox.ClientGeneralInfoBox;
 import objectBox.InitialClientInfoBox_;
-import objectBox.ScheduleBox;
 import objectBox.SpecificCommRecordBox;
 
 
@@ -55,7 +54,7 @@ public class CommunicationAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         context = activity.getApplicationContext();
-        Box<InitialClientInfoBox> clientBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);;
+        Box<ClientGeneralInfoBox> clientBox = ObjectBox.get().boxFor(ClientGeneralInfoBox.class);;
 
         // getting lead data for the row
         final SpecificCommRecordBox data = leadList.get(position);
@@ -66,7 +65,7 @@ public class CommunicationAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.custom_communication_list_item, null);
 
-        InitialClientInfoBox i = clientBox.query().equal(InitialClientInfoBox_.clientID,Integer.parseInt(data.getGeneralInfosId())).build().findFirst();
+        ClientGeneralInfoBox i = clientBox.query().equal(InitialClientInfoBox_.clientID,Integer.parseInt(data.getGeneralInfosId())).build().findFirst();
         String mobileNumber = "", clientAddress = "", clientProgress = "";
         if (i!=null){
             mobileNumber = i.getContactNo();

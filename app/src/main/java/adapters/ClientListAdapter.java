@@ -4,18 +4,12 @@ package adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,22 +17,19 @@ import java.util.List;
 import bp.Utils;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.ClientDetails;
-import io.objectbox.Box;
-import io.objectbox.query.QueryBuilder;
-import objectBox.InitialClientInfoBox;
-import okhttp3.internal.Util;
+import objectBox.ClientGeneralInfoBox;
 
 
 public class ClientListAdapter extends BaseAdapter {
     private Context context;
     private Activity activity;
     private LayoutInflater inflater;
-    private List<InitialClientInfoBox> leadList;
+    private List<ClientGeneralInfoBox> leadList;
     String api="";
     boolean isVerified = false;
     private final String TAG = getClass().getSimpleName() + " Atiar= ";
 
-    public ClientListAdapter(Activity activity, List<InitialClientInfoBox> leadList) {
+    public ClientListAdapter(Activity activity, List<ClientGeneralInfoBox> leadList) {
         this.activity = activity;
         this.leadList = leadList;
     }
@@ -63,7 +54,7 @@ public class ClientListAdapter extends BaseAdapter {
         context = activity.getApplicationContext();
 
         // getting lead data for the row
-        final InitialClientInfoBox data = leadList.get(position);
+        final ClientGeneralInfoBox data = leadList.get(position);
 
         if (inflater == null)
             inflater = (LayoutInflater) activity
@@ -112,7 +103,7 @@ public class ClientListAdapter extends BaseAdapter {
     }
 
     //To update the searchView items in TransportList Activity
-    public void update(List<InitialClientInfoBox> resuls){
+    public void update(List<ClientGeneralInfoBox> resuls){
         leadList = new ArrayList<>();
         leadList.addAll(resuls);
         notifyDataSetChanged();

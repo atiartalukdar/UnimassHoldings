@@ -1,11 +1,9 @@
 package info.atiar.unimassholdings.clients;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -18,12 +16,11 @@ import adapters.ClientListAdapter;
 import bp.ObjectBox;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import info.atiar.unimassholdings.HomePage;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import io.objectbox.Box;
 import io.objectbox.query.QueryBuilder;
-import objectBox.InitialClientInfoBox;
+import objectBox.ClientGeneralInfoBox;
 import objectBox.InitialClientInfoBox_;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
@@ -43,8 +40,8 @@ public class ClientsList extends AppCompatActivity {
     APIInterface apiInterface;
     ClientListAdapter adapter;
 
-    Box<InitialClientInfoBox> clientBox;
-    List<InitialClientInfoBox> clientList;
+    Box<ClientGeneralInfoBox> clientBox;
+    List<ClientGeneralInfoBox> clientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +52,7 @@ public class ClientsList extends AppCompatActivity {
 
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
-        clientBox = ObjectBox.get().boxFor(InitialClientInfoBox.class);
+        clientBox = ObjectBox.get().boxFor(ClientGeneralInfoBox.class);
 
         String dataToLoad = getIntent().getStringExtra("client");
         switch (dataToLoad) {
@@ -105,8 +102,8 @@ public class ClientsList extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                List<InitialClientInfoBox> tripResults = new ArrayList<InitialClientInfoBox>();
-                for (InitialClientInfoBox x : clientList) {
+                List<ClientGeneralInfoBox> tripResults = new ArrayList<ClientGeneralInfoBox>();
+                for (ClientGeneralInfoBox x : clientList) {
 
                     try {
                         if (x.getLandownerAddress().equals(null) || x.getLandownerAddress().equals("") || x.getLandownerAddress() == null) {
@@ -189,7 +186,7 @@ public class ClientsList extends AppCompatActivity {
 
                     List<ClientBox.GeneralInfo> clientLists = response.body().getGeneralInfo();
                     for (ClientBox.GeneralInfo data : clientLists) {
-                        InitialClientInfoBox i = new InitialClientInfoBox(data);
+                        ClientGeneralInfoBox i = new ClientGeneralInfoBox(data);
                         clientBox.put(i);
                     }
 

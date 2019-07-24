@@ -10,7 +10,7 @@ import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
 @Entity
-public class InitialClientInfoBox implements Serializable {
+public class ClientGeneralInfoBox implements Serializable {
 
     @Id
     long id;
@@ -39,10 +39,10 @@ public class InitialClientInfoBox implements Serializable {
     private String createdAt;
     private String updatedAt;
 
-    public InitialClientInfoBox() {
+    public ClientGeneralInfoBox() {
     }
 
-    public InitialClientInfoBox(ClientBox.GeneralInfo data) {
+    public ClientGeneralInfoBox(ClientBox.GeneralInfo data) {
         this.clientID = data.getId();
         this.agentId = data.getAgentId();
         this.openingDate = data.getOpeningDate();
