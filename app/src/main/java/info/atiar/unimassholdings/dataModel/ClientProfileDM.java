@@ -60,10 +60,10 @@ public class GeneralInfo {
     private String refSource;
     @SerializedName("ref_source_name")
     @Expose
-    private Object refSourceName;
+    private String refSourceName;
     @SerializedName("ref_source_mobile")
     @Expose
-    private Object refSourceMobile;
+    private String refSourceMobile;
     @SerializedName("prefix")
     @Expose
     private String prefix;
@@ -148,19 +148,19 @@ public class GeneralInfo {
         this.refSource = refSource;
     }
 
-    public Object getRefSourceName() {
+    public String getRefSourceName() {
         return refSourceName;
     }
 
-    public void setRefSourceName(Object refSourceName) {
+    public void setRefSourceName(String refSourceName) {
         this.refSourceName = refSourceName;
     }
 
-    public Object getRefSourceMobile() {
+    public String getRefSourceMobile() {
         return refSourceMobile;
     }
 
-    public void setRefSourceMobile(Object refSourceMobile) {
+    public void setRefSourceMobile(String refSourceMobile) {
         this.refSourceMobile = refSourceMobile;
     }
 
@@ -485,7 +485,7 @@ public class ReqInfo {
     private String area;
     @SerializedName("landsize")
     @Expose
-    private Object landsize;
+    private String landsize;
     @SerializedName("road_existing")
     @Expose
     private String roadExisting;
@@ -547,11 +547,11 @@ public class ReqInfo {
         this.area = area;
     }
 
-    public Object getLandsize() {
+    public String getLandsize() {
         return landsize;
     }
 
-    public void setLandsize(Object landsize) {
+    public void setLandsize(String landsize) {
         this.landsize = landsize;
     }
 

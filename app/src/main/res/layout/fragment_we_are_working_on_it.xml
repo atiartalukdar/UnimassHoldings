@@ -1,26 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    app:layout_gravity="center">
 
-    <ImageView
-        android:layout_gravity="center"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="50dp"
-        android:background="@drawable/logo"
+        android:layout_gravity="center">
 
-        android:alpha=".1"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Please be patient, we are working on it..."
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:textSize="60sp"
-        />
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="50dp"
+            android:alpha=".02"
+            android:background="@drawable/logo" />
+
+        <!--
+            opening_date
+            ref_source
+            ref_source_name
+            ref_source_mobile
+
+            email
+            profession
+            designation
+            business_address
+        -->
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="Email: " />
+
+                <EditText
+                    android:id="@+id/gInfoEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="contact@atiar.info" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="Profession: " />
+
+                <EditText
+                    android:id="@+id/gInfoProfession"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="Business" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="Designation: " />
+
+                <EditText
+                    android:id="@+id/gInfoDesignation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="CEO" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="40dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="Business Address: " />
+
+                <EditText
+                    android:id="@+id/gInfoBizAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLength="25"
+                    android:singleLine="false"
+                    android:inputType="textMultiLine"
+                    android:text="Mirpur 12 " />
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="Opening Date: " />
+
+                <EditText
+                    android:id="@+id/gInfoOpening_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="20-03-2019" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="Reference Source: " />
+
+                <EditText
+                    android:id="@+id/gInfoRef_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="Person" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="Reference Name: " />
+
+                <EditText
+                    android:id="@+id/gInfoRef_source_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="Atiar talukdar" />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center|end"
+                    android:gravity="end"
+                    android:text="References Mobile: " />
+
+                <EditText
+                    android:id="@+id/gInfoRef_source_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="01917445888" />
+
+            </TableRow>
+
+
+        </TableLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/editOrSaveButton"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="bottom"
+            android:text="Edit"
+            android:background="@color/preScreening_button"/>
+
+    </FrameLayout>
+
+
+</ScrollView>

@@ -55,6 +55,7 @@ public class ClientsList extends AppCompatActivity {
         clientBox = ObjectBox.get().boxFor(ClientGeneralInfoBox.class);
 
         String dataToLoad = getIntent().getStringExtra("client");
+
         switch (dataToLoad) {
             case "0":
                 clientList = clientBox.query().equal(ClientGeneralInfoBox_.progressStatus, "0").build().find();

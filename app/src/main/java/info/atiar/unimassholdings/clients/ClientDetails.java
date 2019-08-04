@@ -104,6 +104,9 @@ public class ClientDetails extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         setUpInitialUI();
+
+        loadClientProfile();
+        loadCommunicationDataFromServer();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -185,6 +188,7 @@ public class ClientDetails extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
+                    commBox.removeAll();
                     List<CommunicationDM.SpecificCommRecord> clientLists = response.body().getSpecificCommRecord();
                     for (CommunicationDM.SpecificCommRecord data : clientLists) {
                         SpecificCommRecordBox i = new SpecificCommRecordBox(data);
@@ -227,19 +231,22 @@ public class ClientDetails extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 if (response.isSuccessful()) {
-
                     ClientProfileDM profile = response.body();
-                    ClientProfileDM.OtherInfo a = profile.getOtherInfo();
-                    ClientProfileDM.ReqInfo b = profile.getReqInfo();
 
-                    if (!otherInfoBox.getAll().contains(a)){
-                        otherInfoBox.put(new ClientOtherInfoBox(a));
+                    try{
+
+                        ClientOtherInfoBox a = new ClientOtherInfoBox(profile.getOtherInfo());
+                        ClientRequiredInfoBox b = new ClientRequiredInfoBox(profile.getReqInfo());
+
+                        if (!otherInfoBox.getAll().contains(a)){
+                            otherInfoBox.put(a);
+                        }
+                        if (!requiredInfoBox.getAll().contains(b)){
+                            requiredInfoBox.put(b);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
-                    if (!requiredInfoBox.getAll().contains(b)){
-                        requiredInfoBox.put(new ClientRequiredInfoBox(b));
-                    }
-
-
                     Log.e(TAG, profile.toString());
 
                 }

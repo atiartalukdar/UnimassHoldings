@@ -6,14 +6,18 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
-public class ClientRequiredInfoBox implements Serializable {
+@Entity
+public class ClientRequiredInfoBox {
 
-
+    @Id
+    long id;
     private Integer clientID;
     private String generalInfosId;
     private String area;
-    private Object landsize;
+    private String landsize;
     private String roadExisting;
     private String roadProposed;
     private String width;
@@ -77,11 +81,11 @@ public class ClientRequiredInfoBox implements Serializable {
         this.area = area;
     }
 
-    public Object getLandsize() {
+    public String getLandsize() {
         return landsize;
     }
 
-    public void setLandsize(Object landsize) {
+    public void setLandsize(String landsize) {
         this.landsize = landsize;
     }
 

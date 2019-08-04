@@ -44,6 +44,8 @@ dependencies {
     //Time calculation
     implementation 'net.danlew:android.joda:2.10.1.2'
 
+    //object box database viewer
+    debugImplementation "io.objectbox:objectbox-android-objectbrowser:2.3.4"
 
 }
 apply plugin: 'io.objectbox'

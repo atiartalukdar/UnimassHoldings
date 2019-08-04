@@ -5,14 +5,23 @@
     android:layout_height="match_parent"
     tools:context=".clients.fragments.GeneralInfo">
 
-    <ListView
-        android:id="@+id/communicationList"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/pullToRefresh"
         android:layout_width="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        tools:listitem="@layout/custom_communication_list_item"
         android:layout_height="match_parent">
 
-    </ListView>
+
+        <ListView
+            android:id="@+id/communicationList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            tools:listitem="@layout/custom_communication_list_item">
+
+        </ListView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </FrameLayout>

@@ -3,6 +3,7 @@ package info.atiar.unimassholdings.clients.fragments;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,8 @@ public class CommunicationDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_general_info, container, false);
-        ListView _commListView = v.findViewById(R.id.communicationList);
+        final ListView _commListView = v.findViewById(R.id.communicationList);
+        final SwipeRefreshLayout _pullToRefresh = v.findViewById(R.id.pullToRefresh);
 
         try{
             commList = commBox.query().equal(SpecificCommRecordBox_.generalInfosId,((ClientDetails) getActivity()).getMember().getClientID()+"").build().find();
@@ -67,6 +69,22 @@ public class CommunicationDetails extends Fragment {
             adapter.notifyDataSetChanged();
         }
 
+
+        _pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try{
+                    commList = commBox.query().equal(SpecificCommRecordBox_.generalInfosId,((ClientDetails) getActivity()).getMember().getClientID()+"").build().find();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    adapter = new CommunicationAdapter(getActivity(), commList);
+                    _commListView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+                _pullToRefresh.setRefreshing(false);
+            }
+        });
         return v;
 
 

@@ -61,9 +61,10 @@ public class ScheduleLists extends AppCompatActivity {
         try {
             switch (dataToLoad) {
                 case APIInterface.ALL:
-                    range = APIInterface.TODAY;
+                    range = APIInterface.ALL;
                     scheduleList = tempScheduleList;
                     break;
+
                 case APIInterface.TODAY:
                     range = APIInterface.TODAY;
                     for (ScheduleBox s : tempScheduleList){
