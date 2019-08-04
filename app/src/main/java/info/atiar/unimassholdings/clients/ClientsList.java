@@ -21,7 +21,7 @@ import info.atiar.unimassholdings.dataModel.ClientBox;
 import io.objectbox.Box;
 import io.objectbox.query.QueryBuilder;
 import objectBox.ClientGeneralInfoBox;
-import objectBox.InitialClientInfoBox_;
+import objectBox.ClientGeneralInfoBox_;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -57,23 +57,23 @@ public class ClientsList extends AppCompatActivity {
         String dataToLoad = getIntent().getStringExtra("client");
         switch (dataToLoad) {
             case "0":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "0").build().find();
+                clientList = clientBox.query().equal(ClientGeneralInfoBox_.progressStatus, "0").build().find();
                 break;
             case "20":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "20").build().find();
+                clientList = clientBox.query().equal(ClientGeneralInfoBox_.progressStatus, "20").build().find();
                 break;
             case "40":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "40").build().find();
+                clientList = clientBox.query().equal(ClientGeneralInfoBox_.progressStatus, "40").build().find();
                 break;
             case "80":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "80").build().find();
+                clientList = clientBox.query().equal(ClientGeneralInfoBox_.progressStatus, "80").build().find();
                 break;
             case "90":
-                clientList = clientBox.query().equal(InitialClientInfoBox_.progressStatus, "90").build().find();
+                clientList = clientBox.query().equal(ClientGeneralInfoBox_.progressStatus, "90").build().find();
                 break;
 
             case "all":
-                clientList = clientBox.query().order(InitialClientInfoBox_.progressStatus, QueryBuilder.DESCENDING).build().find();
+                clientList = clientBox.query().order(ClientGeneralInfoBox_.progressStatus, QueryBuilder.DESCENDING).build().find();
                 break;
 
 

@@ -18,7 +18,7 @@ import bp.Utils;
 import info.atiar.unimassholdings.R;
 import io.objectbox.Box;
 import objectBox.ClientGeneralInfoBox;
-import objectBox.InitialClientInfoBox_;
+import objectBox.ClientGeneralInfoBox_;
 import objectBox.ScheduleBox;
 
 
@@ -65,7 +65,7 @@ public class ScheduleAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.custom_schedule_list_item, null);
 
-        ClientGeneralInfoBox i = clientBox.query().equal(InitialClientInfoBox_.clientID,Integer.parseInt(data.getGeneralInfosId())).build().findFirst();
+        ClientGeneralInfoBox i = clientBox.query().equal(ClientGeneralInfoBox_.clientID,Integer.parseInt(data.getGeneralInfosId())).build().findFirst();
         String mobileNumber = "", clientAddress = "", clientProgress = "";
         if (i!=null){
             mobileNumber = i.getContactNo();

@@ -2,15 +2,21 @@ package info.atiar.unimassholdings;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import adapters.ClientListAdapter;
 import bp.ObjectBox;
 import bp.TimeUtils;
 import butterknife.BindView;
@@ -21,7 +27,7 @@ import info.atiar.unimassholdings.dataModel.ScheduleDM;
 import info.atiar.unimassholdings.schedule.ScheduleLists;
 import io.objectbox.Box;
 import objectBox.ClientGeneralInfoBox;
-import objectBox.InitialClientInfoBox_;
+import objectBox.ClientGeneralInfoBox_;
 import objectBox.ScheduleBox;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
@@ -46,6 +52,7 @@ public class HomePage extends AppCompatActivity {
     @BindView(R.id.schedule_tomorrow)    TextView  _tomorrow;
     @BindView(R.id.schedule_week)    TextView  _week;
     @BindView(R.id.schedule_month)    TextView  _month;
+    @BindView(R.id.pullToRefresh)    SwipeRefreshLayout _pullToRefresh;
 
     int client0,client20,client40,client80,client90;
     int today,tomorrow,week,month;
@@ -83,6 +90,25 @@ public class HomePage extends AppCompatActivity {
         getAllClients();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_page_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.app_bar_menu_signout:
+                Session.logout();
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
     private void getAllClients() {
         final ProgressDialog progressDialog = new ProgressDialog(HomePage.this);
         progressDialog.setIndeterminate(true);
@@ -102,7 +128,8 @@ public class HomePage extends AppCompatActivity {
 
                 if (response.isSuccessful()){
                     clientInfoBox.removeAll();
-                    List<ClientBox.GeneralInfo> clientLists = response.body().getGeneralInfo();
+                    initialize();
+                        List<ClientBox.GeneralInfo> clientLists = response.body().getGeneralInfo();
                     for (ClientBox.GeneralInfo data:clientLists) {
                         ClientGeneralInfoBox i = new ClientGeneralInfoBox(data);
                         clientInfoBox.put(i);
@@ -229,11 +256,11 @@ public class HomePage extends AppCompatActivity {
 
     private void loadLocalData(){
         try{
-            client0 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "0").build().find().size();
-            client20 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "20").build().find().size();
-            client40 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "40").build().find().size();
-            client80 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "80").build().find().size();
-            client90 = clientInfoBox.query().equal(InitialClientInfoBox_.progressStatus, "90").build().find().size();
+            client0 = clientInfoBox.query().equal(ClientGeneralInfoBox_.progressStatus, "0").build().find().size();
+            client20 = clientInfoBox.query().equal(ClientGeneralInfoBox_.progressStatus, "20").build().find().size();
+            client40 = clientInfoBox.query().equal(ClientGeneralInfoBox_.progressStatus, "40").build().find().size();
+            client80 = clientInfoBox.query().equal(ClientGeneralInfoBox_.progressStatus, "80").build().find().size();
+            client90 = clientInfoBox.query().equal(ClientGeneralInfoBox_.progressStatus, "90").build().find().size();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -274,6 +301,16 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void allOnclickListener(){
+
+        _pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getAllClients();
+                _pullToRefresh.setRefreshing(false);
+
+            }
+        });
+
 
         _allClients.setOnClickListener(new View.OnClickListener() {
             @Override
