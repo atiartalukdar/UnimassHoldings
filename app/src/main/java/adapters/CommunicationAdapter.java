@@ -94,7 +94,7 @@ public class CommunicationAdapter extends BaseAdapter {
         _clientID.setText("Record ID: " + data.getRecordID());
         _agent.setText("By: "+data.getByWhom());
         _progress.setText(clientProgress+ "%");
-        _lastActionWithDate.setText("Last : " + data.getLocation() +" - " +data.getLastactionType() + "("+data.getLastactionDate()+")");
+        _lastActionWithDate.setText("Meeting Place : " + data.getLocation());
         _nextActionWithDate.setText("Next : "+data.getActionType() + "("+data.getDate()+")");
         _details.setText("Details: "+data.getDetails() );
         _specialNote.setText("Special Note: "+data.getSpecialNote() );
@@ -117,7 +117,6 @@ public class CommunicationAdapter extends BaseAdapter {
             }
         });
         return convertView;
-
     }
 
     //To update the searchView items in TransportList Activity
@@ -126,4 +125,5 @@ public class CommunicationAdapter extends BaseAdapter {
         leadList.addAll(resuls);
         notifyDataSetChanged();
     }
+
 }

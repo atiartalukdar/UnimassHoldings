@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bp.ObjectBox;
+import bp.Utils;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.fragments.CommunicationDetails;
 import info.atiar.unimassholdings.clients.fragments.GeneralInfo;
@@ -107,6 +109,13 @@ public class ClientDetails extends AppCompatActivity {
 
         loadClientProfile();
         loadCommunicationDataFromServer();
+
+        _phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.openDialPad(ClientDetails.this,_phone.getText().toString());
+            }
+        });
     }
 
     private void setupViewPager(ViewPager viewPager) {

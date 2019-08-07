@@ -113,6 +113,39 @@
                     android:gravity="center|left"
                     android:orientation="vertical">
 
+
+                    <TextView
+                        android:id="@+id/custom_schedule_special_note"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="details"
+                        android:textSize="10sp"
+                        android:layout_weight="1"
+                        android:textStyle="italic|bold" />
+
+
+                    <TextView
+                        android:id="@+id/custom_schedule_next_action_with_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="next: "
+                        android:layout_weight="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic|bold" />
+
+
+                    <TextView
+                        android:id="@+id/custom_schedule_last_action_with_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="meeting place:"
+                        android:layout_weight="1"
+                        android:textSize="10sp"
+                        android:textStyle="italic|bold" />
+
                     <TextView
                         android:id="@+id/custom_schedule_address"
                         android:layout_width="wrap_content"
@@ -123,35 +156,8 @@
                         android:textSize="10sp"
                         android:textStyle="italic|bold" />
 
-                    <TextView
-                        android:id="@+id/custom_schedule_last_action_with_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=""
-                        android:layout_weight="1"
-                        android:textSize="10sp"
-                        android:textStyle="italic|bold" />
 
-                    <TextView
-                        android:id="@+id/custom_schedule_next_action_with_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=""
-                        android:layout_weight="1"
-                        android:textSize="10sp"
-                        android:textStyle="italic|bold" />
 
-                    <TextView
-                        android:id="@+id/custom_schedule_special_note"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text=""
-                        android:textSize="10sp"
-                        android:layout_weight="1"
-                        android:textStyle="italic|bold" />
 
                     <TextView
                         android:id="@+id/custom_schedule_special_note_by_admin"
