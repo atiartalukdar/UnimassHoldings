@@ -7,14 +7,23 @@ package info.atiar.unimassholdings.dataModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ClientProfileDM {
+import java.io.Serializable;
 
+import javax.annotation.Nullable;
+
+public class ClientProfileDM implements Serializable {
+
+    @Nullable
     @SerializedName("generalInfo")
     @Expose
     private GeneralInfo generalInfo;
+
+    @Nullable
     @SerializedName("reqInfo")
     @Expose
     private ReqInfo reqInfo;
+
+    @Nullable
     @SerializedName("otherInfo")
     @Expose
     private OtherInfo otherInfo;
@@ -44,7 +53,7 @@ public class ClientProfileDM {
     }
 
 
-public class GeneralInfo {
+public class GeneralInfo implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -302,7 +311,7 @@ public class GeneralInfo {
 
 }
 
-public class OtherInfo {
+public class OtherInfo implements Serializable{
 
     @SerializedName("id")
     @Expose
@@ -472,7 +481,7 @@ public class OtherInfo {
 
 }
 
-public class ReqInfo {
+public class ReqInfo implements Serializable{
 
     @SerializedName("id")
     @Expose
@@ -651,4 +660,25 @@ public class ReqInfo {
         this.updatedAt = updatedAt;
     }
 
+    @Override
+    public String toString() {
+        return "ReqInfo{" +
+                "id=" + id +
+                ", generalInfosId='" + generalInfosId + '\'' +
+                ", area='" + area + '\'' +
+                ", landsize='" + landsize + '\'' +
+                ", roadExisting='" + roadExisting + '\'' +
+                ", roadProposed='" + roadProposed + '\'' +
+                ", width='" + width + '\'' +
+                ", length='" + length + '\'' +
+                ", face='" + face + '\'' +
+                ", unit='" + unit + '\'' +
+                ", ratio='" + ratio + '\'' +
+                ", signingMoney='" + signingMoney + '\'' +
+                ", mouza='" + mouza + '\'' +
+                ", dagNo='" + dagNo + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
+    }
 }}

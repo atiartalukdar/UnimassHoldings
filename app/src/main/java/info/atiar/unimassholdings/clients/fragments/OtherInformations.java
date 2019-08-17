@@ -1,7 +1,5 @@
 package info.atiar.unimassholdings.clients.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,6 +27,6 @@ public class OtherInformations extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_we_are_working_on_it, container, false);
+        return inflater.inflate(R.layout.fragment_communication_details, container, false);
     }
 }

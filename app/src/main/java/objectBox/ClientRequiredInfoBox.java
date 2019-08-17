@@ -16,6 +16,7 @@ public class ClientRequiredInfoBox {
     long id;
     private Integer clientID;
     private String generalInfosId;
+
     private String area;
     private String landsize;
     private String roadExisting;
@@ -31,29 +32,26 @@ public class ClientRequiredInfoBox {
     private String createdAt;
     private String updatedAt;
 
-
-
-
     public ClientRequiredInfoBox() {
     }
 
     public ClientRequiredInfoBox(ClientProfileDM.ReqInfo data) {
         this.clientID = data.getId();
         this.generalInfosId = data.getGeneralInfosId();
-        this.area = data.getArea();
-        this.landsize = data.getLandsize();
-        this.roadExisting = data.getRoadExisting();
-        this.roadProposed = data.getRoadProposed();
-        this.width = data.getWidth();
-        this.length = data.getLength();
-        this.face = data.getFace();
-        this.unit = data.getUnit();
-        this.ratio = data.getRatio();
-        this.signingMoney = data.getSigningMoney();
-        this.mouza = data.getMouza();
-        this.dagNo = data.getDagNo();
-        this.createdAt = data.getCreatedAt();
-        this.updatedAt = data.getUpdatedAt();
+        this.area = data.getArea()+"";
+        this.landsize = data.getLandsize()+"";
+        this.roadExisting = data.getRoadExisting()+"";
+        this.roadProposed = data.getRoadProposed()+"";
+        this.width = data.getWidth()+"";
+        this.length = data.getLength()+"";
+        this.face = data.getFace()+"";
+        this.unit = data.getUnit()+"";
+        this.ratio = data.getRatio()+"";
+        this.signingMoney = data.getSigningMoney()+"";
+        this.mouza = data.getMouza()+"";
+        this.dagNo = data.getDagNo()+"";
+        this.createdAt = data.getCreatedAt()+"";
+        this.updatedAt = data.getUpdatedAt()+"";
     }
 
 
@@ -183,5 +181,28 @@ public class ClientRequiredInfoBox {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientRequiredInfoBox{" +
+                "id=" + id +
+                ", clientID=" + clientID +
+                ", generalInfosId='" + generalInfosId + '\'' +
+                ", area='" + area + '\'' +
+                ", landsize='" + landsize + '\'' +
+                ", roadExisting='" + roadExisting + '\'' +
+                ", roadProposed='" + roadProposed + '\'' +
+                ", width='" + width + '\'' +
+                ", length='" + length + '\'' +
+                ", face='" + face + '\'' +
+                ", unit='" + unit + '\'' +
+                ", ratio='" + ratio + '\'' +
+                ", signingMoney='" + signingMoney + '\'' +
+                ", mouza='" + mouza + '\'' +
+                ", dagNo='" + dagNo + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
     }
 }

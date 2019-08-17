@@ -1,5 +1,6 @@
 package info.atiar.unimassholdings.dataModel;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 
-public class CommunicationDM {
+public class CommunicationDM implements Serializable {
 
     @SerializedName("specificCommRecord")
     @Expose
@@ -24,7 +25,7 @@ public class CommunicationDM {
         this.specificCommRecord = specificCommRecord;
     }
 
-public class SpecificCommRecord {
+public class SpecificCommRecord implements Serializable {
 
     @SerializedName("id")
     @Expose

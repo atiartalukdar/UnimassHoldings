@@ -16,6 +16,7 @@ import java.util.List;
 import bp.ObjectBox;
 import bp.Utils;
 import info.atiar.unimassholdings.R;
+import info.atiar.unimassholdings.dataModel.CommunicationDM;
 import io.objectbox.Box;
 import objectBox.ClientGeneralInfoBox;
 import objectBox.ClientGeneralInfoBox_;
@@ -26,12 +27,12 @@ public class CommunicationAdapter extends BaseAdapter {
     private Context context;
     private Activity activity;
     private LayoutInflater inflater;
-    private List<SpecificCommRecordBox> leadList;
+    private List<CommunicationDM.SpecificCommRecord> leadList;
     String api="";
     boolean isVerified = false;
     private final String TAG = getClass().getSimpleName() + " Atiar= ";
 
-    public CommunicationAdapter(Activity activity, List<SpecificCommRecordBox> leadList) {
+    public CommunicationAdapter(Activity activity, List<CommunicationDM.SpecificCommRecord> leadList) {
         this.activity = activity;
         this.leadList = leadList;
     }
@@ -57,7 +58,7 @@ public class CommunicationAdapter extends BaseAdapter {
         Box<ClientGeneralInfoBox> clientBox = ObjectBox.get().boxFor(ClientGeneralInfoBox.class);;
 
         // getting lead data for the row
-        final SpecificCommRecordBox data = leadList.get(position);
+        final CommunicationDM.SpecificCommRecord data = leadList.get(position);
 
         if (inflater == null)
             inflater = (LayoutInflater) activity
@@ -91,7 +92,7 @@ public class CommunicationAdapter extends BaseAdapter {
 
         _name.setText(data.getLName());
         _phone.setText(mobileNumber);
-        _clientID.setText("Record ID: " + data.getRecordID());
+        _clientID.setText("Record ID: " + data.getId());
         _agent.setText("By: "+data.getByWhom());
         _progress.setText(clientProgress+ "%");
         _lastActionWithDate.setText("Meeting Place : " + data.getLocation());
@@ -120,7 +121,7 @@ public class CommunicationAdapter extends BaseAdapter {
     }
 
     //To update the searchView items in TransportList Activity
-    public void update(List<SpecificCommRecordBox> resuls){
+    public void update(List<CommunicationDM.SpecificCommRecord> resuls){
         leadList = new ArrayList<>();
         leadList.addAll(resuls);
         notifyDataSetChanged();

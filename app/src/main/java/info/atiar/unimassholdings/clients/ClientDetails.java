@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import bp.ObjectBox;
 import bp.Utils;
 import info.atiar.unimassholdings.R;
@@ -54,18 +56,21 @@ public class ClientDetails extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ClientGeneralInfoBox member;
 
-    public ClientGeneralInfoBox getMember() {
-        return member;
+    @Nullable
+    private ClientProfileDM memberProfile;  //contains member profile
+    private List<CommunicationDM.SpecificCommRecord> communicationList = new ArrayList<>(); //contains specific communication records
+    private ClientGeneralInfoBox individualMember;  //clients basic info retrieved from previous activity.
+
+    public ClientProfileDM getMemberProfile() {
+        return memberProfile;
+    }
+    public List<CommunicationDM.SpecificCommRecord> getCommunicationDetails() {
+        return communicationList;
     }
 
     Retrofit retrofit;
     APIInterface apiInterface;
-    Box<SpecificCommRecordBox> commBox;
-    Box<ClientOtherInfoBox> otherInfoBox;
-    Box<ClientRequiredInfoBox> requiredInfoBox;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +78,6 @@ public class ClientDetails extends AppCompatActivity {
         setContentView(R.layout.activity_client_details);
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
-        commBox = ObjectBox.get().boxFor(SpecificCommRecordBox.class);
-        otherInfoBox = ObjectBox.get().boxFor(ClientOtherInfoBox.class);
-        requiredInfoBox = ObjectBox.get().boxFor(ClientRequiredInfoBox.class);
 
 
         _name       = findViewById(R.id.custom_client_name);
@@ -87,9 +89,10 @@ public class ClientDetails extends AppCompatActivity {
 
 
         try {
-            //retriving lead member's details from intent to start pre screening
-            member = (ClientGeneralInfoBox) getIntent().getSerializableExtra("memberDetails");
-            Log.e(TAG, "Client ID: " + member.getClientID());
+            //retriving client profile from individual
+            individualMember = (ClientGeneralInfoBox) getIntent().getSerializableExtra("memberDetails");
+            memberProfile = (ClientProfileDM) getIntent().getSerializableExtra("memberProfile");
+            Log.e(TAG, "Client ID: " + individualMember.getClientID());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,9 +109,6 @@ public class ClientDetails extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         setUpInitialUI();
-
-        loadClientProfile();
-        loadCommunicationDataFromServer();
 
         _phone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,7 +156,6 @@ public class ClientDetails extends AppCompatActivity {
         }
     }
 
-
     private void setUpInitialUI() {
         try {
             _name.setTextColor(Color.BLACK);
@@ -166,111 +165,16 @@ public class ClientDetails extends AppCompatActivity {
             _address.setTextColor(Color.BLACK);
                     _progress.setTextColor(Color.GREEN);
 
-            _name.setText(member.getLandownerName());
-            _phone.setText(member.getContactNo());
-            _clientID.setText("Client ID: " + member.getClientID());
-            _agent.setText("Agent: "+member.getAgentId());
-            _address.setText(member.getLandownerAddress());
-            _progress.setText(member.getProgressStatus() + "%");
+            _name.setText(individualMember.getLandownerName());
+            _phone.setText(individualMember.getContactNo());
+            _clientID.setText("Client ID: " + individualMember.getClientID());
+            _agent.setText("Agent: "+individualMember.getAgentId());
+            _address.setText(individualMember.getLandownerAddress());
+            _progress.setText(individualMember.getProgressStatus() + "%");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void loadCommunicationDataFromServer() {
-        final ProgressDialog progressDialog = new ProgressDialog(ClientDetails.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading Communication Data...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-
-        Call call = apiInterface.getClientCommunicationRecords(Session.getSeassionData().getEmail(), Session.getPassword(), Session.getUserRole(), getMember().getClientID()+"");
-
-        call.enqueue(new Callback<CommunicationDM>() {
-            @Override
-            public void onResponse(Call<CommunicationDM> call, Response<CommunicationDM> response) {
-                /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
-                 */
-                progressDialog.dismiss();
-
-                if (response.isSuccessful()) {
-
-                    commBox.removeAll();
-                    List<CommunicationDM.SpecificCommRecord> clientLists = response.body().getSpecificCommRecord();
-                    for (CommunicationDM.SpecificCommRecord data : clientLists) {
-                        SpecificCommRecordBox i = new SpecificCommRecordBox(data);
-                        if (!commBox.getAll().contains(i)){
-                            commBox.put(i);
-                        }
-                    }
-
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(ClientDetails.this, "Server Error", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-            }
-
-        });
-
-
-    }
-
-    private void loadClientProfile() {
-        final ProgressDialog progressDialog = new ProgressDialog(ClientDetails.this);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Loading Profile Data...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-
-        Call call = apiInterface.getClientProfile(Session.getSeassionData().getEmail(), Session.getPassword(), Session.getUserRole(), getMember().getClientID()+"");
-
-        call.enqueue(new Callback<ClientProfileDM>() {
-            @Override
-            public void onResponse(Call<ClientProfileDM> call, Response<ClientProfileDM> response) {
-                /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
-                 */
-                progressDialog.dismiss();
-
-                if (response.isSuccessful()) {
-                    ClientProfileDM profile = response.body();
-
-                    try{
-
-                        ClientOtherInfoBox a = new ClientOtherInfoBox(profile.getOtherInfo());
-                        ClientRequiredInfoBox b = new ClientRequiredInfoBox(profile.getReqInfo());
-
-                        if (!otherInfoBox.getAll().contains(a)){
-                            otherInfoBox.put(a);
-                        }
-                        if (!requiredInfoBox.getAll().contains(b)){
-                            requiredInfoBox.put(b);
-                        }
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    Log.e(TAG, profile.toString());
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Toast.makeText(ClientDetails.this, "Server Error", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-            }
-
-        });
-
-
     }
 
 

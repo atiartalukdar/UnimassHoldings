@@ -28,7 +28,9 @@
         <activity android:name=".addNewClients.AddNewClients" />
         <activity android:name=".schedule.ScheduleLists" />
         <activity android:name=".clients.ClientsList" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".HomePage" />
         <activity android:name=".Splash">
             <intent-filter>
