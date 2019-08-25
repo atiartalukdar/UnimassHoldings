@@ -25,7 +25,7 @@ public class CommunicationDM implements Serializable {
         this.specificCommRecord = specificCommRecord;
     }
 
-public class SpecificCommRecord implements Serializable {
+public static class SpecificCommRecord implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -84,6 +84,9 @@ public class SpecificCommRecord implements Serializable {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+
+    public SpecificCommRecord() {
+    }
 
     public Integer getId() {
         return id;

@@ -1,231 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:layout_gravity="top|center"
-    app:layout_gravity="center">
+    >
 
-    <FrameLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="top|center">
+        android:layout_weight="1">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="50dp"
-            android:alpha=".02"
-            android:background="@drawable/logo" />
-
-        <!--
-            opening_date
-            ref_source
-            ref_source_name
-            ref_source_mobile
-
-            email
-            profession
-            designation
-            business_address
-        -->
-
-        <TableLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="20dp">
+            android:layout_gravity="top|center">
 
-            <TableRow
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="50dp"
+                android:alpha=".02"
+                android:background="@drawable/logo" />
+
+            <!--
+                spouseName;
+                spouseProf;
+                spousePhone;
+                children;
+                decisionMaker;
+
+                landownerEducation;
+                hometown;
+                agePersonality;
+                keyFactor;
+                marketKnowledge;
+                managementEvaluation;
+            -->
+
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:paddingTop="20dp">
 
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="Email: " />
-
-                <EditText
-                    android:id="@+id/gInfoEmail"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="contact@atiar.info" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            </TableRow>
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Spouse Name: " />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/otherSpouseName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="Jannatul Nayeem Surovy" />
 
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="Profession: " />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/gInfoProfession"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="Business" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            </TableRow>
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Spouse Prof: " />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/otherSpouseProf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="Student" />
 
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="Designation: " />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/gInfoDesignation"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="CEO" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            </TableRow>
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Spouse Phone: " />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/otherSpousePhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="01827771818" />
 
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="Business Address: " />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/gInfoBizAddress"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:maxLength="25"
-                    android:singleLine="false"
-                    android:inputType="textMultiLine"
-                    android:text="Mirpur 12 " />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            </TableRow>
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Children: " />
 
+                    <EditText
+                        android:id="@+id/otherChildren"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:inputType="textMultiLine"
+                        android:maxLength="25"
+                        android:singleLine="false"
+                        android:text="1 " />
 
+                </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="Opening Date: " />
-
-                <EditText
-                    android:id="@+id/gInfoOpening_date"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="20-03-2019" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="40dp"
+                    android:orientation="horizontal">
 
-            </TableRow>
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Decision Maker: " />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/otherDecisionMaker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="Husband" />
 
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="Reference Source: " />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/gInfoRef_source"
+
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="Person" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            </TableRow>
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Landowner Edu: " />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/otherLandownerEducation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="BSC" />
 
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="Reference Name: " />
+                </TableRow>
 
-                <EditText
-                    android:id="@+id/gInfoRef_source_name"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="Atiar talukdar" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Hometown: " />
+
+                    <EditText
+                        android:id="@+id/otherHometown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="Gobindoganj" />
 
 
-            </TableRow>
+                </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_gravity="center|end"
-                    android:gravity="end"
-                    android:text="References Mobile: " />
-
-                <EditText
-                    android:id="@+id/gInfoRef_source_mobile"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:gravity="center"
-                    android:text="01917445888" />
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
-            </TableRow>
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Age Personality: " />
+
+                    <EditText
+                        android:id="@+id/otherAgePersonality"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Key Factor: " />
+
+                    <EditText
+                        android:id="@+id/otherKeyFactor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Market Knowledge: " />
+
+                    <EditText
+                        android:id="@+id/otherMarketKnowledge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_gravity="center|end"
+                        android:gravity="end"
+                        android:text="Management Evaluation " />
+
+                    <EditText
+                        android:id="@+id/otherManagementEvaluation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:text="" />
+
+                </TableRow>
 
 
-        </TableLayout>
+            </TableLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/editOrSaveButton"
-            android:textColor="@color/colorWhite"
-            android:layout_gravity="bottom"
-            android:text="Edit"
-            android:background="@color/preScreening_button"/>
+        </FrameLayout>
 
-    </FrameLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/editOrSaveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/preScreening_button"
+        android:gravity="center"
+        android:text="Edit"
+        android:textColor="@color/colorWhite" />
 
 
-</ScrollView>
+</LinearLayout>

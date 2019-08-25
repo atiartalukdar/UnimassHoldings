@@ -64,9 +64,6 @@ public class Requirements extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
 
-        //TODO: need to handel null pointer exception
-        
-
         if (reqInfo != null){
             _reqArea.setText(reqInfo.getArea() != null ? reqInfo.getArea() : "");
             _reqLandSize.setText(reqInfo.getLandsize() != null ? reqInfo.getLandsize() : "");

@@ -6,6 +6,7 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 
 import java.sql.Time;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
@@ -15,9 +16,8 @@ import java.util.Date;
 public class TimeUtils {
     private static final String TAG =  "TimeUtils  Atiar - ";
 
-    public static SimpleDateFormat dateFormat = new SimpleDateFormat(
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat(
             "yyyy-MM-dd");
-
 
     public static int getDifferenceInDays(String date){
         int difference = -1;
@@ -37,6 +37,12 @@ public class TimeUtils {
             e.printStackTrace();
         }
         return difference;
+    }
+
+
+    public static String getToday(){
+        Date date = new Date(System.currentTimeMillis());
+        return dateFormat.format(date);
     }
 
 }

@@ -2,13 +2,21 @@ package adapters;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,25 +24,39 @@ import java.util.List;
 import bp.ObjectBox;
 import bp.Utils;
 import info.atiar.unimassholdings.R;
+import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.CommunicationDM;
 import io.objectbox.Box;
 import objectBox.ClientGeneralInfoBox;
 import objectBox.ClientGeneralInfoBox_;
 import objectBox.SpecificCommRecordBox;
+import retrofit.APIInterface;
+import retrofit.APIManager;
+import retrofit.RequestListener;
+import retrofit.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import session.Session;
 
 
 public class CommunicationAdapter extends BaseAdapter {
+    private final String TAG = getClass().getSimpleName() + " Atiar= ";
+    APIManager _apiManager = new APIManager();
     private Context context;
     private Activity activity;
     private LayoutInflater inflater;
     private List<CommunicationDM.SpecificCommRecord> leadList;
-    String api="";
-    boolean isVerified = false;
-    private final String TAG = getClass().getSimpleName() + " Atiar= ";
+
+    Retrofit retrofit;
+    APIInterface apiInterface;
 
     public CommunicationAdapter(Activity activity, List<CommunicationDM.SpecificCommRecord> leadList) {
         this.activity = activity;
         this.leadList = leadList;
+        retrofit = RetrofitClientInstance.getRetrofitInstance();
+        apiInterface = retrofit.create(APIInterface.class);
     }
 
     @Override
@@ -66,13 +88,6 @@ public class CommunicationAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.custom_communication_list_item, null);
 
-        ClientGeneralInfoBox i = clientBox.query().equal(ClientGeneralInfoBox_.clientID,Integer.parseInt(data.getGeneralInfosId())).build().findFirst();
-        String mobileNumber = "", clientAddress = "", clientProgress = "";
-        if (i!=null){
-            mobileNumber = i.getContactNo();
-            clientAddress  = i.getLandownerAddress();
-            clientProgress = i.getProgressStatus();
-        }
 
 
 
@@ -91,10 +106,10 @@ public class CommunicationAdapter extends BaseAdapter {
 
 
         _name.setText(data.getLName());
-        _phone.setText(mobileNumber);
+        _phone.setText(((ClientDetails) activity).getMemberProfile().getGeneralInfo().getContactNo());
         _clientID.setText("Record ID: " + data.getId());
         _agent.setText("By: "+data.getByWhom());
-        _progress.setText(clientProgress+ "%");
+        _progress.setText(((ClientDetails) activity).getMemberProfile().getGeneralInfo().getProgressStatus() + "%");
         _lastActionWithDate.setText("Meeting Place : " + data.getLocation());
         _nextActionWithDate.setText("Next : "+data.getActionType() + "("+data.getDate()+")");
         _details.setText("Details: "+data.getDetails() );
@@ -114,7 +129,7 @@ public class CommunicationAdapter extends BaseAdapter {
         _item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showAddRemarksPopup(data.getId());
             }
         });
         return convertView;
@@ -127,4 +142,32 @@ public class CommunicationAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    private void showAddRemarksPopup(final int recodID){
+        final EditText taskEditText = new EditText(activity);
+        AlertDialog dialog = new AlertDialog.Builder(activity)
+                .setTitle("Record id " + recodID)
+                .setMessage("Add Remarks")
+                .setView(taskEditText)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, int which) {
+                        String remarks = String.valueOf(taskEditText.getText());
+                        _apiManager.addCommunicationRemarks(remarks, recodID, new RequestListener<String>() {
+                            @Override
+                            public void onSuccess(String response) {
+                                dialog.dismiss();
+                                Toast.makeText(activity, response.toString(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+        dialog.show();
+    }
 }
