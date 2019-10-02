@@ -25,6 +25,8 @@ import info.atiar.unimassholdings.clients.AddNewClientGeneralInfoActivity;
 import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
 import retrofit.APIInterface;
+import retrofit.APIManager;
+import retrofit.RequestListener;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +40,7 @@ import session.Session;
 
 public class GeneralInfo extends Fragment {
     private final String TAG = getClass().getName() + " Atiar - ";
+    APIManager _apiManager = new APIManager();
     Retrofit retrofit;
     APIInterface apiInterface;
 
@@ -61,7 +64,6 @@ public class GeneralInfo extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
     }
@@ -111,10 +113,8 @@ public class GeneralInfo extends Fragment {
             _gInfoRefSourceName.setEnabled(true);
             _gInfoRefSourceMobile.setEnabled(true);
 
-            updateGeneralInfo(profileDM.getGeneralInfo().getId()+"",profileDM.getGeneralInfo().getLandownerName(),
-                    profileDM.getGeneralInfo().getLandownerAddress(),profileDM.getGeneralInfo().getRefSourceMobile(),
-                    _gInfoEmail.getText().toString(),_gInfoProfession.getText().toString(),_gInfoDesignation.getText().toString(),
-                    _gInfoBizAddress.getText().toString(),_gInfoRefSourceName.getText().toString(),_gInfoRefSourceMobile.getText().toString());
+            _editOrSaveButton.setText("Save");
+
         } else {
             _gInfoEmail.setEnabled(false);
             _gInfoProfession.setEnabled(false);
@@ -125,13 +125,18 @@ public class GeneralInfo extends Fragment {
             _gInfoRefSourceName.setEnabled(false);
             _gInfoRefSourceMobile.setEnabled(false);
 
+            updateGeneralInfo(profileDM.getGeneralInfo().getId()+"",profileDM.getGeneralInfo().getLandownerName(),
+                    profileDM.getGeneralInfo().getLandownerAddress(),profileDM.getGeneralInfo().getRefSourceMobile(),
+                    _gInfoEmail.getText().toString(),_gInfoProfession.getText().toString(),_gInfoDesignation.getText().toString(),
+                    _gInfoBizAddress.getText().toString(),_gInfoRefSourceName.getText().toString(),_gInfoRefSourceMobile.getText().toString());
+
             _editOrSaveButton.setText("Edit");
 
         }
     }
 
     private void updateGeneralInfo(String cliendID, String landOwnerName, String address, String mobile, String email, String profession,
-                                         String designation, String businessAddress, String reference, String refMobile) {
+                                     String designation, String businessAddress, String reference, String refMobile) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Updating General Info...");
@@ -151,14 +156,12 @@ public class GeneralInfo extends Fragment {
                     Log.e(TAG, response.body().toString());
                     Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
 
-                    _editOrSaveButton.setText("Save");
-
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, t.getMessage());
                 progressDialog.dismiss();
             }

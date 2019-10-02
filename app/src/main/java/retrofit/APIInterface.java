@@ -104,7 +104,7 @@ public interface APIInterface {
 
     @POST("add_gen_info")
     @FormUrlEncoded
-    Call<Object> updateClientGeneralInfo(@Field("email") String email,
+    Call<String> updateClientGeneralInfo(@Field("email") String email,
                                       @Field("password") String password,
                                       @Field("role") String role,
                                       @Field("landowner_id") String landowner_id,

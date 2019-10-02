@@ -23,8 +23,10 @@ import java.util.List;
 
 import bp.ObjectBox;
 import bp.Utils;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.ClientDetails;
+import info.atiar.unimassholdings.clients.ClientsList;
 import info.atiar.unimassholdings.dataModel.CommunicationDM;
 import io.objectbox.Box;
 import objectBox.ClientGeneralInfoBox;
@@ -75,7 +77,7 @@ public class CommunicationAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         context = activity.getApplicationContext();
         Box<ClientGeneralInfoBox> clientBox = ObjectBox.get().boxFor(ClientGeneralInfoBox.class);;
 
@@ -87,9 +89,6 @@ public class CommunicationAdapter extends BaseAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
             convertView = inflater.inflate(R.layout.custom_communication_list_item, null);
-
-
-
 
         LinearLayout _item = convertView.findViewById(R.id.custom_schedule_item);
         TextView _name = convertView.findViewById(R.id.custom_schedule_name);
@@ -104,7 +103,6 @@ public class CommunicationAdapter extends BaseAdapter {
         TextView _specialNote = convertView.findViewById(R.id.custom_schedule_special_note);
         TextView _specialNoteByAdmin = convertView.findViewById(R.id.custom_schedule_special_note_by_admin);
 
-
         _name.setText(data.getLName());
         _phone.setText(((ClientDetails) activity).getMemberProfile().getGeneralInfo().getContactNo());
         _clientID.setText("Record ID: " + data.getId());
@@ -115,7 +113,6 @@ public class CommunicationAdapter extends BaseAdapter {
         _details.setText("Details: "+data.getDetails() );
         _specialNote.setText("Special Note: "+data.getSpecialNote() );
         _specialNoteByAdmin.setText("Remarks: "+data.getRemarks() );
-
 
         //Phone number clicked event
         _phone.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +126,11 @@ public class CommunicationAdapter extends BaseAdapter {
         _item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddRemarksPopup(data.getId());
+                if (Session.getUserRole().equals("admin")){
+                    showAddRemarksPopup(data.getId(),position);
+                }else {
+                    Utils.showDialog(activity,"You are allowed to add remarks...", SweetAlertDialog.WARNING_TYPE);
+                }
             }
         });
         return convertView;
@@ -142,7 +143,7 @@ public class CommunicationAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private void showAddRemarksPopup(final int recodID){
+    private void showAddRemarksPopup(final int recodID, final int position){
         final EditText taskEditText = new EditText(activity);
         AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setTitle("Record id " + recodID)
@@ -151,17 +152,27 @@ public class CommunicationAdapter extends BaseAdapter {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
-                        String remarks = String.valueOf(taskEditText.getText());
+                        dialog.dismiss();
+                        final ProgressDialog progressDialog = new ProgressDialog(activity);
+                        progressDialog.setIndeterminate(true);
+                        progressDialog.setMessage("Updating Remarks...");
+                        progressDialog.setCancelable(false);
+                        progressDialog.show();
+
+                        final String remarks = String.valueOf(taskEditText.getText());
                         _apiManager.addCommunicationRemarks(remarks, recodID, new RequestListener<String>() {
                             @Override
                             public void onSuccess(String response) {
-                                dialog.dismiss();
+                                progressDialog.dismiss();
+                                leadList.get(position).setRemarks(remarks);
+                                notifyDataSetChanged();
                                 Toast.makeText(activity, response.toString(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onError(Throwable t) {
-                                dialog.dismiss();
+                                progressDialog.dismiss();
+                                notifyDataSetChanged();
                             }
                         });
                     }

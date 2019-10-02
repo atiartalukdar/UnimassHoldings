@@ -79,13 +79,10 @@ public class CommunicationDetails extends Fragment {
         apiInterface = retrofit.create(APIInterface.class);
 
         loadCommunicationDataFromServer();
-
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_communication_details, container, false);
         unbinder = ButterKnife.bind(this, v);
 
@@ -152,7 +149,6 @@ public class CommunicationDetails extends Fragment {
 
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -197,8 +193,6 @@ public class CommunicationDetails extends Fragment {
 
     }
 
-
-
     //====================== below code are responsible for add new communication popup =====================//
     private View popupInputDialogView = null;
     private Spinner _interactionTypeSpinner = null;
@@ -214,10 +208,8 @@ public class CommunicationDetails extends Fragment {
     ArrayList<String> actionTypeArray = new ArrayList<>();
     ArrayAdapter<String> actionTypeAdapter;
 
-
     /* Initialize popup dialog view and ui controls in the popup dialog. */
-    private void initPopupViewControls()
-    {
+    private void initPopupViewControls(){
         // Get layout inflater object.
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 

@@ -5,14 +5,165 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/leadList"
+    <LinearLayout
+        android:id="@+id/custom_schedule_item"
         android:layout_width="match_parent"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        tools:listitem="@layout/custom_client_list_item"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    </ListView>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/custom_schedule_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Atiar Talukdar"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/custom_schedule_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:text="40%"
+                android:textColor="@color/greenDark"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/custom_schedule_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:drawableLeft="@drawable/ic_call_black_24dp"
+                android:gravity="center"
+                android:text="01917445888"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/custom_schedule_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Client ID: 001"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/custom_schedule_agent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Atiar" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/custom_schedule_special_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="details"
+                    android:textSize="10sp"
+                    android:textStyle="italic|bold" />
+
+
+                <TextView
+                    android:id="@+id/custom_schedule_next_action_with_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="next: "
+                    android:textSize="10sp"
+                    android:textStyle="italic|bold" />
+
+
+                <TextView
+                    android:id="@+id/custom_schedule_last_action_with_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="meeting place:"
+                    android:textSize="10sp"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/custom_schedule_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="10sp"
+                    android:textStyle="italic|bold" />
+
+
+                <TextView
+                    android:id="@+id/custom_schedule_special_note_by_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textStyle="italic|bold" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/lineColor"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

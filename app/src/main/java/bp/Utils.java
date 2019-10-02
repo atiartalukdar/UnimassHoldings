@@ -1,19 +1,24 @@
 package bp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.text.Html;
 import android.widget.TextView;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import info.atiar.unimassholdings.R;
 import session.MyApplication;
 
 /**
  * Created by Atiar Talukdar on 7/11/2019.
  */
 public class Utils {
-
     public static void openDialPad(Activity activity, String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + phoneNumber));
@@ -28,4 +33,73 @@ public class Utils {
             textView.setText(Html.fromHtml("<h2>Title</h2><br><p>Description here</p>"));
         }
     }
+
+    public static void showDialog(Activity context, String message) {
+        new SweetAlertDialog(context)
+                .setTitleText(message)
+                .show();
+
+    }
+
+    public static void showDialog(Activity context, String message, int AlertType) {
+        new SweetAlertDialog(context, AlertType)
+                .setContentText(message)
+                .setConfirmText("OK")
+                .show();
+
+    }
+
+    public static void showDialog(final Activity context, String message, final Class toClass) {
+
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(message)
+                .setConfirmText("OK")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        context.startActivity(new Intent(context, toClass));
+                        context.finish();
+                    }
+                })
+                .show();
+
+    }
+
+    public static void showDialog(final Activity context, String message, final Class toClass, int AlertType) {
+
+        new SweetAlertDialog(context, AlertType)
+                .setTitleText(message)
+                .setConfirmText("OK")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        context.startActivity(new Intent(context, toClass));
+                        context.finish();
+                    }
+                })
+                .show();
+    }
+
+    public static void showDialog(Activity context){
+        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
+    }
+
+    public static KProgressHUD showProgressDialog(Activity activity, String description){
+        KProgressHUD kProgressHUD = KProgressHUD.create(activity)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait ... ")
+                .setDetailsLabel(description)
+                .setCancellable(true)
+                .setAnimationSpeed(1)
+                .setDimAmount(0.5f)
+                .show();
+        return kProgressHUD;
+    }
+
 }

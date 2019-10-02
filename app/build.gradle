@@ -47,5 +47,10 @@ dependencies {
     //object box database viewer
     debugImplementation "io.objectbox:objectbox-android-objectbrowser:2.3.4"
 
+    //alert dialog
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
+
 }
 apply plugin: 'io.objectbox'
