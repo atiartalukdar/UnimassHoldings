@@ -2,12 +2,11 @@ package info.atiar.unimassholdings.clients.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AlertDialog;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import adapters.CommunicationAdapter;

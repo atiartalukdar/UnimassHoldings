@@ -2,10 +2,9 @@ package bp;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.support.v7.widget.AppCompatTextView;
-import android.widget.TextView;
+import androidx.appcompat.widget.AppCompatTextView;
 
-public class EqualWidthHeightTextView extends android.support.v7.widget.AppCompatTextView {
+public class EqualWidthHeightTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public EqualWidthHeightTextView(Context context) {
         super(context);

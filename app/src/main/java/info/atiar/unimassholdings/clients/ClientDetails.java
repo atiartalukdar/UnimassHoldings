@@ -1,26 +1,23 @@
 package info.atiar.unimassholdings.clients;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import bp.ObjectBox;
 import bp.Utils;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.fragments.CommunicationDetails;
@@ -29,18 +26,10 @@ import info.atiar.unimassholdings.clients.fragments.OtherInformations;
 import info.atiar.unimassholdings.clients.fragments.Requirements;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
 import info.atiar.unimassholdings.dataModel.CommunicationDM;
-import io.objectbox.Box;
 import objectBox.ClientGeneralInfoBox;
-import objectBox.ClientOtherInfoBox;
-import objectBox.ClientRequiredInfoBox;
-import objectBox.SpecificCommRecordBox;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import session.Session;
 
 
 public class ClientDetails extends AppCompatActivity {

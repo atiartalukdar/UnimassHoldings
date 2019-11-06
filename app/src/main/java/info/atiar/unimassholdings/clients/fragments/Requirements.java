@@ -1,15 +1,14 @@
 package info.atiar.unimassholdings.clients.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import bp.ObjectBox;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -17,10 +16,6 @@ import butterknife.Unbinder;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
-import io.objectbox.Box;
-import objectBox.ClientGeneralInfoBox;
-import objectBox.ClientRequiredInfoBox;
-import objectBox.ClientRequiredInfoBox_;
 
 /**
  * Created by Atiar Talukdar on 7/11/2019.

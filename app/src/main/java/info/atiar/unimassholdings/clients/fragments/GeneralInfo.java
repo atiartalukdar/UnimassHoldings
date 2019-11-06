@@ -1,9 +1,8 @@
 package info.atiar.unimassholdings.clients.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +18,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import info.atiar.unimassholdings.HomePage;
 import info.atiar.unimassholdings.R;
-import info.atiar.unimassholdings.clients.AddNewClientGeneralInfoActivity;
 import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
 import retrofit.APIInterface;
 import retrofit.APIManager;
-import retrofit.RequestListener;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,20 +1,10 @@
 package info.atiar.unimassholdings;
 
-import android.Manifest;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Handler;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 
 import session.Session;
 
