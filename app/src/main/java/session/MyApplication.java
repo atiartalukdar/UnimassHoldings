@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.onesignal.OneSignal;
+
 import bp.ObjectBox;
 
 public class MyApplication extends Application {
@@ -17,6 +19,13 @@ public class MyApplication extends Application {
         super.onCreate();
         context = this;
         ObjectBox.init(this);
+
+        // OneSignal Initialization
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(false)
+                .autoPromptLocation(true)
+                .init();
     }
 
     public static Context getContext (){return context; }

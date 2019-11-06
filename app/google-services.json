@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "910158070008",
+    "firebase_url": "https://unimass-1e26e.firebaseio.com",
+    "project_id": "unimass-1e26e",
+    "storage_bucket": "unimass-1e26e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910158070008:android:23d209491b886834673b0d",
+        "android_client_info": {
+          "package_name": "info.atiar.unimassholdings"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910158070008-m0h86sq2rllvgf708se6r7ubg0ulvkp3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "info.atiar.unimassholdings",
+            "certificate_hash": "4b10a278e64cffb7d024e0a13c1e44a7805a2825"
+          }
+        },
+        {
+          "client_id": "910158070008-2u7eudmtpehueqi4lhjehs5kpvbl7d48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByEa1mC_g11XYhDgEylg0r83gSDKE6hyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910158070008-2u7eudmtpehueqi4lhjehs5kpvbl7d48.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
