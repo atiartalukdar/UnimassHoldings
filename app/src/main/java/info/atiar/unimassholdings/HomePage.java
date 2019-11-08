@@ -20,6 +20,8 @@ import bp.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dataModel.OneSignalDM;
+import dataModel.OneSignalResponseDM;
 import info.atiar.unimassholdings.clients.AddNewClientGeneralInfoActivity;
 import info.atiar.unimassholdings.clients.ClientsList;
 import info.atiar.unimassholdings.dataModel.ClientBox;
@@ -30,6 +32,8 @@ import objectBox.ClientGeneralInfoBox;
 import objectBox.ClientGeneralInfoBox_;
 import objectBox.ScheduleBox;
 import retrofit.APIInterface;
+import retrofit.APIManager;
+import retrofit.RequestListener;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +43,7 @@ import session.Session;
 
 public class HomePage extends AppCompatActivity {
     private final String TAG = getClass().getName() + " Atiar - ";
+    private APIManager _apiManager = new APIManager();
 
     @BindView(R.id.allClients)
     TextView _allClients;
@@ -91,8 +96,6 @@ public class HomePage extends AppCompatActivity {
 
 
 
-
-
        /* _addNewClients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +105,30 @@ public class HomePage extends AppCompatActivity {
 
         allOnclickListener();
         getAllClients();
+
+        OneSignalDM oneSignalDM = new OneSignalDM();
+        oneSignalDM.setData(oneSignalDM.new Data("foo"));
+        oneSignalDM.setContents(oneSignalDM.new Contents("English"));
+
+        try {
+            _apiManager.sendNotification(oneSignalDM, new RequestListener<OneSignalResponseDM>() {
+                @Override
+                public void onSuccess(OneSignalResponseDM response) {
+                    Log.e("Onesignal Atiar- ", response.toString());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.e("Onesignal Atiar- ", "Error - " + t.getMessage());
+
+                }
+            });
+        }catch (Exception e){
+            Log.e("Onesignal Atiar- ", "Error - " + e.getMessage());
+        }
+
+
+
     }
 
     @Override
@@ -218,7 +245,7 @@ public class HomePage extends AppCompatActivity {
                             scheduleBox.put(i);
                             try {
                                 int dif = TimeUtils.getDifferenceInDays(data.getDate());
-                                Log.e(TAG, dif + "");
+                                //Log.e(TAG, dif + "");
 
                                 if (dif == 0) {
                                     today++;

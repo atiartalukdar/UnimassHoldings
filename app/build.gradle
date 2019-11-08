@@ -81,7 +81,7 @@ dependencies {
 
     //OneSignal
     implementation 'com.onesignal:OneSignal:3.12.2'
-
+    implementation 'androidx.work:work-runtime:2.2.0'
 
 
 }

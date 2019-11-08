@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         LoginData.GetData g = response.body().getUserdata();
                         Session.createSeassion(_password.getText().toString(),userRole, g);
-                        Log.e(TAG, g.toString());
+                        //Log.e(TAG, g.toString());
 
                         startActivity(new Intent(MainActivity.this,HomePage.class));
                         finish();

@@ -29,7 +29,7 @@ public class TimeUtils {
             if (numOfDays==0){
                 return futureDate.getDay() == today.getDay() ? 0 : 1;
             }
-            Log.e(TAG, "difference between today and " + date + " is = " + numOfDays);
+            //Log.e(TAG, "difference between today and " + date + " is = " + numOfDays);
             return numOfDays;
 
         } catch (ParseException e) {

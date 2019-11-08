@@ -1,5 +1,9 @@
 package retrofit;
 
+import java.util.Map;
+
+import dataModel.OneSignalDM;
+import dataModel.OneSignalResponseDM;
 import info.atiar.unimassholdings.dataModel.AddClientGeneralInfoDM;
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
@@ -8,8 +12,11 @@ import info.atiar.unimassholdings.dataModel.LoginData;
 import info.atiar.unimassholdings.dataModel.MessageDM;
 import info.atiar.unimassholdings.dataModel.ScheduleDM;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.HeaderMap;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 
@@ -135,6 +142,14 @@ public interface APIInterface {
                                       @Field("profession") String profession,
                                       @Field("designation") String designation,
                                       @Field("business_address") String business_address);
+
+
+
+    @Headers({ "Content-Type: application/json;charset=UTF-8"})
+    @POST("notifications")
+    Call<OneSignalResponseDM> sendNotification(@HeaderMap Map<String, String> headers, @Body OneSignalDM oneSignalDM);
+
+
 
 
 }

@@ -89,7 +89,7 @@ public class AddNewClientGeneralInfoActivity extends AppCompatActivity {
             public void onResponse(Call<Object> call, Response<Object> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
-                    Log.e(TAG, response.body().toString());
+                    //Log.e(TAG, response.body().toString());
                     Toast.makeText(AddNewClientGeneralInfoActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(AddNewClientGeneralInfoActivity.this, HomePage.class));

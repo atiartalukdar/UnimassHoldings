@@ -149,7 +149,7 @@ public class GeneralInfo extends Fragment {
             public void onResponse(Call<Object> call, Response<Object> response) {
                 progressDialog.dismiss();
                 if (response.isSuccessful()) {
-                    Log.e(TAG, response.body().toString());
+                   // Log.e(TAG, response.body().toString());
                     Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
 
                 }

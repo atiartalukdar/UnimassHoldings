@@ -31,6 +31,4 @@ public class MyApplication extends Application {
     public static Context getContext (){return context; }
     public static synchronized MyApplication getInstance(){return mInstance;}
 
-
-
 }

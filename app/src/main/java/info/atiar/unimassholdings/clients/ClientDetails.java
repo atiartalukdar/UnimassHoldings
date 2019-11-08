@@ -81,7 +81,7 @@ public class ClientDetails extends AppCompatActivity {
             //retriving client profile from individual
             individualMember = (ClientGeneralInfoBox) getIntent().getSerializableExtra("memberDetails");
             memberProfile = (ClientProfileDM) getIntent().getSerializableExtra("memberProfile");
-            Log.e(TAG, "Client ID: " + individualMember.getClientID());
+           // Log.e(TAG, "Client ID: " + individualMember.getClientID());
         } catch (Exception e) {
             e.printStackTrace();
         }

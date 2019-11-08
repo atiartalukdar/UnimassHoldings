@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 
+import java.util.HashMap;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import info.atiar.unimassholdings.R;
 import session.MyApplication;
@@ -100,6 +102,12 @@ public class Utils {
                 .setDimAmount(0.5f)
                 .show();
         return kProgressHUD;
+    }
+
+    public static HashMap<String, String> getHeaders(){
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Authorization","Basic NTZmNWZiYTctNmNiYi00NTUwLWI5YWItMjgwMDdiNGFiNDRm");
+        return  headers;
     }
 
 }
