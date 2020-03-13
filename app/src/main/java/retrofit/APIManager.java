@@ -14,7 +14,7 @@ import session.MyApplication;
 import session.Session;
 
 public class APIManager {
-    private static final String BASE_URL = "http://photodesignexpert.com/unimassfiles/api/";
+    private static final String BASE_URL = "https://photodesignexpert.com/unimassfiles/api/";
     private static final String BASE_URL_OneSignal = "https://onesignal.com/api/v1/";
     private final APIInterface api;
     private final APIInterface apiOneSignal;

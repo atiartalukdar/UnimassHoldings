@@ -7,6 +7,8 @@ import android.util.Log;
 import com.onesignal.OneSignal;
 
 import bp.ObjectBox;
+import oneSignal.NotificationOpenedHandler;
+import oneSignal.NotificationReceivedHandler;
 
 public class MyApplication extends Application {
     private static Context context;
@@ -25,6 +27,8 @@ public class MyApplication extends Application {
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(false)
                 .autoPromptLocation(true)
+                .setNotificationOpenedHandler(new NotificationOpenedHandler())
+                .setNotificationReceivedHandler(new NotificationReceivedHandler())
                 .init();
     }
 
