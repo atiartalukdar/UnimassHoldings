@@ -105,7 +105,7 @@ public class ClientListAdapter extends BaseAdapter {
         _item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadClientProfile(data.getClientID()+"", data);
+                loadClientProfile(data.getClientID()+"");
             }
         });
         //Phone number clicked event
@@ -126,7 +126,7 @@ public class ClientListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private void loadClientProfile(String clientID, final ClientGeneralInfoBox data) {
+    private void loadClientProfile(String clientID) {
         final ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Loading Profile Data...");
@@ -146,7 +146,7 @@ public class ClientListAdapter extends BaseAdapter {
                 if (response.isSuccessful()) {
                     Intent intent = new Intent(context, ClientDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("memberDetails",data);
+                    //intent.putExtra("memberDetails",data);
                     intent.putExtra("memberProfile",response.body());
                     context.startActivity(intent);
                 }

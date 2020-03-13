@@ -14,6 +14,7 @@ import android.widget.Toast;
 import javax.annotation.Nullable;
 
 import bp.TimeUtils;
+import bp.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -99,36 +100,42 @@ public class GeneralInfo extends Fragment {
 
     @OnClick(R.id.editOrSaveButton)
     public void onViewClicked() {
-        if (_editOrSaveButton.getText().toString().toLowerCase().trim().equals("edit")) {
-            _gInfoEmail.setEnabled(true);
-            _gInfoProfession.setEnabled(true);
-            _gInfoDesignation.setEnabled(true);
-            _gInfoBizAddress.setEnabled(true);
-            _gInfoOpeningDate.setEnabled(true);
-            _gInfoRefSource.setEnabled(true);
-            _gInfoRefSourceName.setEnabled(true);
-            _gInfoRefSourceMobile.setEnabled(true);
+        if (Session.getUserRole().toLowerCase().contains("admin")){
+            if (_editOrSaveButton.getText().toString().toLowerCase().trim().equals("edit")) {
+                _gInfoEmail.setEnabled(true);
+                _gInfoProfession.setEnabled(true);
+                _gInfoDesignation.setEnabled(true);
+                _gInfoBizAddress.setEnabled(true);
+                _gInfoOpeningDate.setEnabled(true);
+                _gInfoRefSource.setEnabled(true);
+                _gInfoRefSourceName.setEnabled(true);
+                _gInfoRefSourceMobile.setEnabled(true);
 
-            _editOrSaveButton.setText("Save");
+                _editOrSaveButton.setText("Save");
 
-        } else {
-            _gInfoEmail.setEnabled(false);
-            _gInfoProfession.setEnabled(false);
-            _gInfoDesignation.setEnabled(false);
-            _gInfoBizAddress.setEnabled(false);
-            _gInfoOpeningDate.setEnabled(false);
-            _gInfoRefSource.setEnabled(false);
-            _gInfoRefSourceName.setEnabled(false);
-            _gInfoRefSourceMobile.setEnabled(false);
+            } else {
+                _gInfoEmail.setEnabled(false);
+                _gInfoProfession.setEnabled(false);
+                _gInfoDesignation.setEnabled(false);
+                _gInfoBizAddress.setEnabled(false);
+                _gInfoOpeningDate.setEnabled(false);
+                _gInfoRefSource.setEnabled(false);
+                _gInfoRefSourceName.setEnabled(false);
+                _gInfoRefSourceMobile.setEnabled(false);
 
-            updateGeneralInfo(profileDM.getGeneralInfo().getId()+"",profileDM.getGeneralInfo().getLandownerName(),
-                    profileDM.getGeneralInfo().getLandownerAddress(),profileDM.getGeneralInfo().getRefSourceMobile(),
-                    _gInfoEmail.getText().toString(),_gInfoProfession.getText().toString(),_gInfoDesignation.getText().toString(),
-                    _gInfoBizAddress.getText().toString(),_gInfoRefSourceName.getText().toString(),_gInfoRefSourceMobile.getText().toString());
+                updateGeneralInfo(profileDM.getGeneralInfo().getId()+"",profileDM.getGeneralInfo().getLandownerName(),
+                        profileDM.getGeneralInfo().getLandownerAddress(),profileDM.getGeneralInfo().getRefSourceMobile(),
+                        _gInfoEmail.getText().toString(),_gInfoProfession.getText().toString(),_gInfoDesignation.getText().toString(),
+                        _gInfoBizAddress.getText().toString(),_gInfoRefSourceName.getText().toString(),_gInfoRefSourceMobile.getText().toString());
 
-            _editOrSaveButton.setText("Edit");
+                _editOrSaveButton.setText("Edit");
 
+            }
+        }else{
+            Utils.showDialog(getActivity(),"You don't have permission",3);
         }
+
+
     }
 
     private void updateGeneralInfo(String cliendID, String landOwnerName, String address, String mobile, String email, String profession,

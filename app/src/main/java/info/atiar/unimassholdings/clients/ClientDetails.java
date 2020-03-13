@@ -49,7 +49,6 @@ public class ClientDetails extends AppCompatActivity {
     @Nullable
     private ClientProfileDM memberProfile;  //contains member profile
     private List<CommunicationDM.SpecificCommRecord> communicationList = new ArrayList<>(); //contains specific communication records
-    private ClientGeneralInfoBox individualMember;  //clients basic info retrieved from previous activity.
 
     public ClientProfileDM getMemberProfile() {
         return memberProfile;
@@ -79,8 +78,8 @@ public class ClientDetails extends AppCompatActivity {
 
         try {
             //retriving client profile from individual
-            individualMember = (ClientGeneralInfoBox) getIntent().getSerializableExtra("memberDetails");
             memberProfile = (ClientProfileDM) getIntent().getSerializableExtra("memberProfile");
+            //individualMember = (ClientGeneralInfoBox) getIntent().getSerializableExtra("memberDetails");
            // Log.e(TAG, "Client ID: " + individualMember.getClientID());
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,12 +153,12 @@ public class ClientDetails extends AppCompatActivity {
             _address.setTextColor(Color.BLACK);
                     _progress.setTextColor(Color.GREEN);
 
-            _name.setText(individualMember.getLandownerName());
-            _phone.setText(individualMember.getContactNo());
-            _clientID.setText("Client ID: " + individualMember.getClientID());
-            _agent.setText("Agent: "+individualMember.getAgentId());
-            _address.setText(individualMember.getLandownerAddress());
-            _progress.setText(individualMember.getProgressStatus() + "%");
+            _name.setText(memberProfile.getGeneralInfo().getLandownerName());
+            _phone.setText(memberProfile.getGeneralInfo().getContactNo());
+            _clientID.setText("Client ID: " + memberProfile.getGeneralInfo().getId());
+            _agent.setText("Agent: "+memberProfile.getGeneralInfo().getAgentId());
+            _address.setText(memberProfile.getGeneralInfo().getLandownerAddress());
+            _progress.setText(memberProfile.getGeneralInfo().getProgressStatus() + "%");
 
         } catch (Exception e) {
             e.printStackTrace();

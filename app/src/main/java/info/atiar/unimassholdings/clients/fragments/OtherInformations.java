@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import bp.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -15,6 +16,7 @@ import butterknife.Unbinder;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
+import session.Session;
 
 /**
  * Created by Atiar Talukdar on 7/11/2019.
@@ -95,32 +97,37 @@ public class OtherInformations extends Fragment {
     @OnClick(R.id.editOrSaveButton)
     public void onViewClicked() {
 
-        if (_editOrSaveButton.getText().toString().toLowerCase().trim().equals("edit")){
-            _otherSpouseName.setEnabled(true);
-            _otherSpouseProf.setEnabled(true);
-            _otherSpousePhone.setEnabled(true);
-            _otherChildren.setEnabled(true);
-            _otherDecisionMaker.setEnabled(true);
-            _otherLandownerEducation.setEnabled(true);
-            _otherHometown.setEnabled(true);
-            _otherAgePersonality.setEnabled(true);
-            _otherKeyFactor.setEnabled(true);
-            _otherMarketKnowledge.setEnabled(true);
+        if (Session.getUserRole().toLowerCase().contains("admin")){
+            if (_editOrSaveButton.getText().toString().toLowerCase().trim().equals("edit")){
+                _otherSpouseName.setEnabled(true);
+                _otherSpouseProf.setEnabled(true);
+                _otherSpousePhone.setEnabled(true);
+                _otherChildren.setEnabled(true);
+                _otherDecisionMaker.setEnabled(true);
+                _otherLandownerEducation.setEnabled(true);
+                _otherHometown.setEnabled(true);
+                _otherAgePersonality.setEnabled(true);
+                _otherKeyFactor.setEnabled(true);
+                _otherMarketKnowledge.setEnabled(true);
 
-            _editOrSaveButton.setText("Save");
+                _editOrSaveButton.setText("Save");
+            }else {
+                _otherSpouseName.setEnabled(false);
+                _otherSpouseProf.setEnabled(false);
+                _otherSpousePhone.setEnabled(false);
+                _otherChildren.setEnabled(false);
+                _otherDecisionMaker.setEnabled(false);
+                _otherLandownerEducation.setEnabled(false);
+                _otherHometown.setEnabled(false);
+                _otherAgePersonality.setEnabled(false);
+                _otherKeyFactor.setEnabled(false);
+                _otherMarketKnowledge.setEnabled(false);
+
+                _editOrSaveButton.setText("Edit");
+
+            }
         }else {
-            _otherSpouseName.setEnabled(false);
-            _otherSpouseProf.setEnabled(false);
-            _otherSpousePhone.setEnabled(false);
-            _otherChildren.setEnabled(false);
-            _otherDecisionMaker.setEnabled(false);
-            _otherLandownerEducation.setEnabled(false);
-            _otherHometown.setEnabled(false);
-            _otherAgePersonality.setEnabled(false);
-            _otherKeyFactor.setEnabled(false);
-            _otherMarketKnowledge.setEnabled(false);
-
-            _editOrSaveButton.setText("Edit");
+            Utils.showDialog(getActivity(),"You don't have permission",3);
 
         }
     }

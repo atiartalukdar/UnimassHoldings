@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import bp.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -16,6 +17,7 @@ import butterknife.Unbinder;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
+import session.Session;
 
 /**
  * Created by Atiar Talukdar on 7/11/2019.
@@ -99,36 +101,43 @@ public class Requirements extends Fragment {
 
     @OnClick(R.id.editOrSaveButton)
     public void onViewClicked() {
-        if (_editOrSaveButton.getText().toString().toLowerCase().trim().equals("edit")){
-            _reqArea.setEnabled(true);
-            _reqLandSize.setEnabled(true);
-            _reqMouza.setEnabled(true);
-            _reqDagNo.setEnabled(true);
-            _reqRoadExisting.setEnabled(true);
-            _reqRoadProposed.setEnabled(true);
-            _reqSigningMoney.setEnabled(true);
-            _reqRatio.setEnabled(true);
-            _reqWidth.setEnabled(true);
-            _reqLength.setEnabled(true);
-            _reqFace.setEnabled(true);
-            _reqUnit.setEnabled(true);
 
-            _editOrSaveButton.setText("Save");
+        if (Session.getUserRole().toLowerCase().contains("admin")){
+            if (_editOrSaveButton.getText().toString().toLowerCase().trim().equals("edit")){
+                _reqArea.setEnabled(true);
+                _reqLandSize.setEnabled(true);
+                _reqMouza.setEnabled(true);
+                _reqDagNo.setEnabled(true);
+                _reqRoadExisting.setEnabled(true);
+                _reqRoadProposed.setEnabled(true);
+                _reqSigningMoney.setEnabled(true);
+                _reqRatio.setEnabled(true);
+                _reqWidth.setEnabled(true);
+                _reqLength.setEnabled(true);
+                _reqFace.setEnabled(true);
+                _reqUnit.setEnabled(true);
+
+                _editOrSaveButton.setText("Save");
+            }else {
+                _reqArea.setEnabled(false);
+                _reqLandSize.setEnabled(false);
+                _reqMouza.setEnabled(false);
+                _reqDagNo.setEnabled(false);
+                _reqRoadExisting.setEnabled(false);
+                _reqRoadProposed.setEnabled(false);
+                _reqSigningMoney.setEnabled(false);
+                _reqRatio.setEnabled(false);
+                _reqWidth.setEnabled(false);
+                _reqLength.setEnabled(false);
+                _reqFace.setEnabled(false);
+                _reqUnit.setEnabled(false);
+
+                _editOrSaveButton.setText("Edit");
+
+            }
+
         }else {
-            _reqArea.setEnabled(false);
-            _reqLandSize.setEnabled(false);
-            _reqMouza.setEnabled(false);
-            _reqDagNo.setEnabled(false);
-            _reqRoadExisting.setEnabled(false);
-            _reqRoadProposed.setEnabled(false);
-            _reqSigningMoney.setEnabled(false);
-            _reqRatio.setEnabled(false);
-            _reqWidth.setEnabled(false);
-            _reqLength.setEnabled(false);
-            _reqFace.setEnabled(false);
-            _reqUnit.setEnabled(false);
-
-            _editOrSaveButton.setText("Edit");
+            Utils.showDialog(getActivity(),"You don't have permission",3);
 
         }
     }
