@@ -129,7 +129,7 @@ public class CommunicationAdapter extends BaseAdapter {
                 if (Session.getUserRole().equals("admin")){
                     showAddRemarksPopup(data.getId(),position);
                 }else {
-                    Utils.showDialog(activity,"You are allowed to add remarks...", SweetAlertDialog.WARNING_TYPE);
+                    Utils.showDialog(activity,"You don't have this permission !!!", SweetAlertDialog.WARNING_TYPE);
                 }
             }
         });
@@ -160,12 +160,13 @@ public class CommunicationAdapter extends BaseAdapter {
                         progressDialog.show();
 
                         final String remarks = String.valueOf(taskEditText.getText());
+
+                        leadList.get(position).setRemarks(remarks);
+                        notifyDataSetChanged();
                         _apiManager.addCommunicationRemarks(remarks, recodID, new RequestListener<String>() {
                             @Override
                             public void onSuccess(String response) {
                                 progressDialog.dismiss();
-                                leadList.get(position).setRemarks(remarks);
-                                notifyDataSetChanged();
                                 Toast.makeText(activity, response.toString(), Toast.LENGTH_SHORT).show();
                             }
 
