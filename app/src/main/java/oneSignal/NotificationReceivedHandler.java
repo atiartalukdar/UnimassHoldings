@@ -19,7 +19,8 @@ public class NotificationReceivedHandler implements OneSignal.NotificationReceiv
 
     @Override
     public void notificationReceived(OSNotification notification) {
-        //Box<NotificationBox> notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
+        Box<NotificationBox> notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
+        NotificationBox notificationBox = new NotificationBox();
         try {
             if (notification.payload.additionalData.getString("sentByID").equals(Session.getSeassionData().getId().toString())){
                 OneSignal.setInFocusDisplaying(0);
@@ -30,7 +31,6 @@ public class NotificationReceivedHandler implements OneSignal.NotificationReceiv
         }
         JSONObject data = notification.payload.additionalData;
         String sentByName  = null, sentByID = null, sentByUserRole = null, clientID = null, recordID = null;
-        NotificationBox notificationBox = null;
 
         if (data != null) {
             try {
@@ -39,13 +39,21 @@ public class NotificationReceivedHandler implements OneSignal.NotificationReceiv
                 sentByUserRole = data.getString("sentByUserRole");
                 clientID = data.getString("clientID");
                 recordID = data.getString("recordID");
-                notificationBox = new NotificationBox(sentByName,sentByID,sentByUserRole,clientID,recordID, notification.payload.title, notification.payload.body);
-                //notificationBoxBox.put(notificationBox);
+                Log.e("OneSignalExample", "customkey set with value: " + data.toString());
+
+                // notificationBox = new NotificationBox(sentByName,sentByID,sentByUserRole,clientID,recordID, notification.payload.title, notification.payload.body);
+                notificationBox.setClientID(clientID);
+                notificationBox.setSentByName(sentByName);
+                notificationBox.setSentByID(sentByID);
+                notificationBox.setSentByUserRole(sentByUserRole);
+                notificationBox.setRecordID(recordID);
+                Log.e("OneSignalExample", "customkey set with value: " + notificationBox.toString());
+                notificationBoxBox.put(notificationBox);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.i("OneSignalExample", "customkey set with value: " + notificationBox.toString());
-            Log.i("OneSignalExample", "customkey set with value: " + Session.getSeassionData().getId().toString());
+            Log.e("OneSignalExample", "customkey set with value: " + notificationBox.toString());
+            Log.e("OneSignalExample", "customkey set with value: " + Session.getSeassionData().getId().toString());
             //Log.i("OneSignalExample", "NotificationBox size: " + notificationBoxBox.getAll().size());
 
         }

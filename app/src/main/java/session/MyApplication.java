@@ -26,9 +26,9 @@ public class MyApplication extends Application {
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(false)
-                .autoPromptLocation(true)
                 .setNotificationOpenedHandler(new NotificationOpenedHandler(this))
                 .setNotificationReceivedHandler(new NotificationReceivedHandler())
+                .autoPromptLocation(true)
                 .init();
     }
 
