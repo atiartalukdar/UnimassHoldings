@@ -7,6 +7,9 @@ import android.util.Log;
 import com.onesignal.OneSignal;
 
 import bp.ObjectBox;
+import info.atiar.unimassholdings.BuildConfig;
+import io.objectbox.android.AndroidObjectBrowser;
+import objectBox.MyObjectBox;
 import oneSignal.NotificationOpenedHandler;
 import oneSignal.NotificationReceivedHandler;
 
@@ -30,6 +33,7 @@ public class MyApplication extends Application {
                 .setNotificationReceivedHandler(new NotificationReceivedHandler())
                 .autoPromptLocation(true)
                 .init();
+
     }
 
     public static Context getContext (){return context; }

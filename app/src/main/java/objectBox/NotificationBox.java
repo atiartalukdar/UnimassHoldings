@@ -1,10 +1,12 @@
 package objectBox;
 
-import androidx.room.Entity;
 
 import java.io.Serializable;
 
+import bp.Utils;
+import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Unique;
 
 @Entity
 public class NotificationBox implements Serializable {
@@ -12,16 +14,22 @@ public class NotificationBox implements Serializable {
     @Id
     long id;
 
+    @Unique
+    String recordID;
+
     String sentByName;
     String sentByID;
     String sentByUserRole;
     String clientID;
-    String recordID;
     String title;
     String message;
+    String isRead;
+    String date;
+
 
 
     public NotificationBox() {
+        date = Utils.getCurrentDateTime();
     }
 
     public NotificationBox(String sentByName, String sentByID, String sentByUserRole, String clientID, String recordID, String title, String message) {
@@ -32,6 +40,20 @@ public class NotificationBox implements Serializable {
         this.recordID = recordID;
         this.title = title;
         this.message = message;
+        date = Utils.getCurrentDateTime();
+    }
+
+    public NotificationBox(String sentByName, String sentByID, String sentByUserRole, String clientID, String recordID, String title, String message, String isRead) {
+        this.sentByName = sentByName;
+        this.sentByID = sentByID;
+        this.sentByUserRole = sentByUserRole;
+        this.clientID = clientID;
+        this.recordID = recordID;
+        this.title = title;
+        this.message = message;
+        this.isRead = isRead;
+        date = Utils.getCurrentDateTime();
+
     }
 
     public String getSentByName() {
@@ -75,7 +97,7 @@ public class NotificationBox implements Serializable {
     }
 
     public String getTitle() {
-        return title;
+        return title+"";
     }
 
     public void setTitle(String title) {
@@ -83,11 +105,27 @@ public class NotificationBox implements Serializable {
     }
 
     public String getMessage() {
-        return message;
+        return message+"";
     }
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(String isRead) {
+        this.isRead = isRead;
+    }
+
+    public String getDate() {
+        return date+"";
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

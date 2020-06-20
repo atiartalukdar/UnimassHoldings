@@ -10,83 +10,105 @@
       "properties": [
         {
           "id": "1:609934544946884680",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 3
         },
         {
           "id": "2:6861003864780306939",
-          "name": "recordID"
+          "name": "recordID",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:646934444955688313",
-          "name": "generalInfosId"
+          "name": "generalInfosId",
+          "type": 9
         },
         {
           "id": "4:6363103274162493326",
-          "name": "agentId"
+          "name": "agentId",
+          "type": 9
         },
         {
           "id": "5:4380171159484444330",
-          "name": "todoListsId"
+          "name": "todoListsId",
+          "type": 9
         },
         {
           "id": "6:613771092305502939",
-          "name": "lName"
+          "name": "lName",
+          "type": 9
         },
         {
           "id": "7:174490771118622687",
-          "name": "interactionType"
+          "name": "interactionType",
+          "type": 9
         },
         {
           "id": "8:5070477321188977422",
-          "name": "interactionDate"
+          "name": "interactionDate",
+          "type": 9
         },
         {
           "id": "9:6147057253235799032",
-          "name": "lastactionType"
+          "name": "lastactionType",
+          "type": 9
         },
         {
           "id": "10:6069967005991617434",
-          "name": "lastactionDate"
+          "name": "lastactionDate",
+          "type": 9
         },
         {
           "id": "11:709607260255679772",
-          "name": "details"
+          "name": "details",
+          "type": 9
         },
         {
           "id": "12:8819112785460300091",
-          "name": "specialNote"
+          "name": "specialNote",
+          "type": 9
         },
         {
           "id": "13:8146217934026855447",
-          "name": "actionType"
+          "name": "actionType",
+          "type": 9
         },
         {
           "id": "14:5889477545759284890",
-          "name": "byWhom"
+          "name": "byWhom",
+          "type": 9
         },
         {
           "id": "15:3914261569425301217",
-          "name": "date"
+          "name": "date",
+          "type": 9
         },
         {
           "id": "16:8250837131892138481",
-          "name": "location"
+          "name": "location",
+          "type": 9
         },
         {
           "id": "17:5668975296776501414",
-          "name": "done"
+          "name": "done",
+          "type": 9
         },
         {
           "id": "18:7962567539622008754",
-          "name": "remarks"
+          "name": "remarks",
+          "type": 9
         },
         {
           "id": "19:3469469263160044776",
-          "name": "createdAt"
+          "name": "createdAt",
+          "type": 9
         },
         {
           "id": "20:6805047781206403571",
-          "name": "updatedAt"
+          "name": "updatedAt",
+          "type": 9
         }
       ],
       "relations": []
@@ -98,83 +120,105 @@
       "properties": [
         {
           "id": "1:2440895842345978350",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 3
         },
         {
           "id": "2:8340846227217828462",
-          "name": "scheduleID"
+          "name": "scheduleID",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:6833398655514940547",
-          "name": "generalInfosId"
+          "name": "generalInfosId",
+          "type": 9
         },
         {
           "id": "4:4463347806276381632",
-          "name": "agentId"
+          "name": "agentId",
+          "type": 9
         },
         {
           "id": "5:4798988939474040580",
-          "name": "todoListsId"
+          "name": "todoListsId",
+          "type": 9
         },
         {
           "id": "6:5975681883233408959",
-          "name": "lName"
+          "name": "lName",
+          "type": 9
         },
         {
           "id": "7:9171770423187378262",
-          "name": "interactionType"
+          "name": "interactionType",
+          "type": 9
         },
         {
           "id": "8:7430854722827919880",
-          "name": "interactionDate"
+          "name": "interactionDate",
+          "type": 9
         },
         {
           "id": "9:4207796678250041367",
-          "name": "lastactionType"
+          "name": "lastactionType",
+          "type": 9
         },
         {
           "id": "10:2196400525271549877",
-          "name": "lastactionDate"
+          "name": "lastactionDate",
+          "type": 9
         },
         {
           "id": "11:7473200456962472964",
-          "name": "details"
+          "name": "details",
+          "type": 9
         },
         {
           "id": "12:8245042189258281776",
-          "name": "specialNote"
+          "name": "specialNote",
+          "type": 9
         },
         {
           "id": "13:2698502228251921281",
-          "name": "actionType"
+          "name": "actionType",
+          "type": 9
         },
         {
           "id": "14:4774931097036142984",
-          "name": "byWhom"
+          "name": "byWhom",
+          "type": 9
         },
         {
           "id": "15:58977145592533292",
-          "name": "date"
+          "name": "date",
+          "type": 9
         },
         {
           "id": "16:4218964428536452403",
-          "name": "location"
+          "name": "location",
+          "type": 9
         },
         {
           "id": "17:1572736082992882195",
-          "name": "done"
+          "name": "done",
+          "type": 9
         },
         {
           "id": "18:347203118160849260",
-          "name": "remarks"
+          "name": "remarks",
+          "type": 9
         },
         {
           "id": "19:8743200574143378294",
-          "name": "createdAt"
+          "name": "createdAt",
+          "type": 9
         },
         {
           "id": "20:1089047807270143931",
-          "name": "updatedAt"
+          "name": "updatedAt",
+          "type": 9
         }
       ],
       "relations": []
@@ -186,99 +230,125 @@
       "properties": [
         {
           "id": "1:4034953244936116317",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:1613968750232844530",
-          "name": "clientID"
+          "name": "clientID",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:321389793648461862",
-          "name": "agentId"
+          "name": "agentId",
+          "type": 9
         },
         {
           "id": "4:1380843260265815262",
-          "name": "openingDate"
+          "name": "openingDate",
+          "type": 9
         },
         {
           "id": "5:7259358631211023471",
-          "name": "refSource"
+          "name": "refSource",
+          "type": 9
         },
         {
           "id": "6:7070546121716812035",
-          "name": "refSourceName"
+          "name": "refSourceName",
+          "type": 9
         },
         {
           "id": "7:7464594038679332625",
-          "name": "refSourceMobile"
+          "name": "refSourceMobile",
+          "type": 9
         },
         {
           "id": "8:468671842794029763",
-          "name": "prefix"
+          "name": "prefix",
+          "type": 9
         },
         {
           "id": "9:8447077626486235578",
-          "name": "landownerName"
+          "name": "landownerName",
+          "type": 9
         },
         {
           "id": "10:4897293834496362769",
-          "name": "landownerAddress"
+          "name": "landownerAddress",
+          "type": 9
         },
         {
           "id": "11:6938337434870976939",
-          "name": "contactNo"
+          "name": "contactNo",
+          "type": 9
         },
         {
           "id": "12:3765707436414582475",
-          "name": "email"
+          "name": "email",
+          "type": 9
         },
         {
           "id": "13:8832529622181306667",
-          "name": "profession"
+          "name": "profession",
+          "type": 9
         },
         {
           "id": "14:4184985171620699678",
-          "name": "designation"
+          "name": "designation",
+          "type": 9
         },
         {
           "id": "15:6399197806424182927",
-          "name": "businessAddress"
+          "name": "businessAddress",
+          "type": 9
         },
         {
           "id": "16:8624999210945767368",
-          "name": "progressStatus"
+          "name": "progressStatus",
+          "type": 9
         },
         {
           "id": "17:7076050757960260617",
-          "name": "fMeeting"
+          "name": "fMeeting",
+          "type": 9
         },
         {
           "id": "18:1059844165647844363",
-          "name": "pSubmit"
+          "name": "pSubmit",
+          "type": 9
         },
         {
           "id": "19:380446990306319749",
-          "name": "lDoc"
+          "name": "lDoc",
+          "type": 9
         },
         {
           "id": "20:3416093625821956156",
-          "name": "dDoc"
+          "name": "dDoc",
+          "type": 9
         },
         {
           "id": "21:4650975062523296933",
-          "name": "signing"
+          "name": "signing",
+          "type": 9
         },
         {
           "id": "22:5850189611274521689",
-          "name": "archived"
+          "name": "archived",
+          "type": 9
         },
         {
           "id": "23:5835888280427523991",
-          "name": "createdAt"
+          "name": "createdAt",
+          "type": 9
         },
         {
           "id": "24:6160816131780220362",
-          "name": "updatedAt"
+          "name": "updatedAt",
+          "type": 9
         }
       ],
       "relations": []
@@ -290,67 +360,85 @@
       "properties": [
         {
           "id": "1:3125979158157213055",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:4528026829948106514",
-          "name": "clientID"
+          "name": "clientID",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:5212774402168943457",
-          "name": "generalInfosId"
+          "name": "generalInfosId",
+          "type": 9
         },
         {
           "id": "4:4659268451526246484",
-          "name": "spouseName"
+          "name": "spouseName",
+          "type": 9
         },
         {
           "id": "5:2576166259670746106",
-          "name": "spouseProf"
+          "name": "spouseProf",
+          "type": 9
         },
         {
           "id": "6:6634954830306127233",
-          "name": "spousePhone"
+          "name": "spousePhone",
+          "type": 9
         },
         {
           "id": "7:2631900078049276745",
-          "name": "children"
+          "name": "children",
+          "type": 9
         },
         {
           "id": "8:8787564570969167135",
-          "name": "decisionMaker"
+          "name": "decisionMaker",
+          "type": 9
         },
         {
           "id": "9:812660761659500729",
-          "name": "landownerEducation"
+          "name": "landownerEducation",
+          "type": 9
         },
         {
           "id": "10:5678060593538755485",
-          "name": "hometown"
+          "name": "hometown",
+          "type": 9
         },
         {
           "id": "11:2100406944065158630",
-          "name": "agePersonality"
+          "name": "agePersonality",
+          "type": 9
         },
         {
           "id": "12:2350132359234414612",
-          "name": "keyFactor"
+          "name": "keyFactor",
+          "type": 9
         },
         {
           "id": "13:4965495037829512118",
-          "name": "marketKnowledge"
+          "name": "marketKnowledge",
+          "type": 9
         },
         {
           "id": "14:6757551597804336946",
-          "name": "managementEvaluation"
+          "name": "managementEvaluation",
+          "type": 9
         },
         {
           "id": "15:4536049449346997695",
-          "name": "createdAt"
+          "name": "createdAt",
+          "type": 9
         },
         {
           "id": "16:7002091412726316460",
-          "name": "updatedAt"
+          "name": "updatedAt",
+          "type": 9
         }
       ],
       "relations": []
@@ -362,82 +450,162 @@
       "properties": [
         {
           "id": "1:1835571898187924666",
-          "name": "id"
+          "name": "id",
+          "type": 6,
+          "flags": 1
         },
         {
           "id": "2:8315165031794387253",
-          "name": "clientID"
+          "name": "clientID",
+          "type": 5,
+          "flags": 2
         },
         {
           "id": "3:6085476427396106447",
-          "name": "generalInfosId"
+          "name": "generalInfosId",
+          "type": 9
         },
         {
           "id": "4:5454825269883882223",
-          "name": "area"
+          "name": "area",
+          "type": 9
         },
         {
           "id": "5:3801307068623690534",
-          "name": "landsize"
+          "name": "landsize",
+          "type": 9
         },
         {
           "id": "6:5298904536423159904",
-          "name": "roadExisting"
+          "name": "roadExisting",
+          "type": 9
         },
         {
           "id": "7:4441444895564892687",
-          "name": "roadProposed"
+          "name": "roadProposed",
+          "type": 9
         },
         {
           "id": "8:398247149481643047",
-          "name": "width"
+          "name": "width",
+          "type": 9
         },
         {
           "id": "9:5051684573697440218",
-          "name": "length"
+          "name": "length",
+          "type": 9
         },
         {
           "id": "10:4780025881633464801",
-          "name": "face"
+          "name": "face",
+          "type": 9
         },
         {
           "id": "11:5101561890265161909",
-          "name": "unit"
+          "name": "unit",
+          "type": 9
         },
         {
           "id": "12:2250463964641141192",
-          "name": "ratio"
+          "name": "ratio",
+          "type": 9
         },
         {
           "id": "13:7048910102747775286",
-          "name": "signingMoney"
+          "name": "signingMoney",
+          "type": 9
         },
         {
           "id": "14:6811405888095220002",
-          "name": "mouza"
+          "name": "mouza",
+          "type": 9
         },
         {
           "id": "15:4075834543828147539",
-          "name": "dagNo"
+          "name": "dagNo",
+          "type": 9
         },
         {
           "id": "16:3739600287478105984",
-          "name": "createdAt"
+          "name": "createdAt",
+          "type": 9
         },
         {
           "id": "17:5697717628397435685",
-          "name": "updatedAt"
+          "name": "updatedAt",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "10:6780005104055067416",
+      "lastPropertyId": "10:6563451371760786468",
+      "name": "NotificationBox",
+      "properties": [
+        {
+          "id": "1:2674176630251094722",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4346651164456116945",
+          "name": "sentByName",
+          "type": 9
+        },
+        {
+          "id": "3:1412665131716301857",
+          "name": "sentByID",
+          "type": 9
+        },
+        {
+          "id": "4:6030394823583883658",
+          "name": "sentByUserRole",
+          "type": 9
+        },
+        {
+          "id": "5:262299537948615472",
+          "name": "clientID",
+          "type": 9
+        },
+        {
+          "id": "6:3616245922130606342",
+          "name": "recordID",
+          "indexId": "1:8623934163632892708",
+          "type": 9,
+          "flags": 2080
+        },
+        {
+          "id": "7:2222855806528624922",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "8:6305429062389214524",
+          "name": "message",
+          "type": 9
+        },
+        {
+          "id": "9:8251611472017629182",
+          "name": "isRead",
+          "type": 9
+        },
+        {
+          "id": "10:6563451371760786468",
+          "name": "date",
+          "type": 9
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "9:3401064690989865670",
-  "lastIndexId": "0:0",
+  "lastEntityId": "10:6780005104055067416",
+  "lastIndexId": "1:8623934163632892708",
   "lastRelationId": "1:9030291281422314510",
   "lastSequenceId": "0:0",
-  "modelVersion": 4,
-  "modelVersionParserMinimum": 4,
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
   "retiredEntityUids": [
     4038954461774447730,
     800140726540073312,

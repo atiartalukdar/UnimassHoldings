@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="info.atiar.unimassholdings">
 
+    <!-- Required to provide the web interface -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Required to run keep-alive service when targeting API 28 or higher -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <application
         android:name="session.MyApplication"
         android:allowBackup="true"
@@ -12,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".clients.AddNewClientGeneralInfoActivity"></activity>
+        <activity android:name=".notification.DisplayAllNotification"></activity>
+        <activity android:name=".clients.AddNewClientGeneralInfoActivity" />
 
         <receiver android:name=".widget.ScheduleWidget">
             <intent-filter>
@@ -41,8 +45,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
 
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
+
+        <service
+            android:name="oneSignal.NotificationExtender"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

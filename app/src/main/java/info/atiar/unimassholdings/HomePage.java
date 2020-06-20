@@ -26,6 +26,7 @@ import info.atiar.unimassholdings.clients.AddNewClientGeneralInfoActivity;
 import info.atiar.unimassholdings.clients.ClientsList;
 import info.atiar.unimassholdings.dataModel.ClientBox;
 import info.atiar.unimassholdings.dataModel.ScheduleDM;
+import info.atiar.unimassholdings.notification.DisplayAllNotification;
 import info.atiar.unimassholdings.schedule.ScheduleLists;
 import io.objectbox.Box;
 import objectBox.ClientGeneralInfoBox;
@@ -467,5 +468,9 @@ public class HomePage extends AppCompatActivity {
     public void onViewClicked() {
         startActivity(new Intent(this, AddNewClientGeneralInfoActivity.class));
         finish();
+    }
+
+    public void notifications(View view) {
+        startActivity(new Intent(this, DisplayAllNotification.class));
     }
 }

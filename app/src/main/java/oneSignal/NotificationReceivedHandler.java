@@ -19,17 +19,18 @@ public class NotificationReceivedHandler implements OneSignal.NotificationReceiv
 
     @Override
     public void notificationReceived(OSNotification notification) {
-        Box<NotificationBox> notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
-        NotificationBox notificationBox = new NotificationBox();
+        //Box<NotificationBox> notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
+        //NotificationBox notificationBox = new NotificationBox();
         try {
-            if (notification.payload.additionalData.getString("sentByID").equals(Session.getSeassionData().getId().toString())){
+            if (notification.payload.additionalData.getString("sentByID").equals(Session.getSeassionData().getId().toString())) {
                 OneSignal.setInFocusDisplaying(0);
                 OneSignal.cancelNotification(notification.androidNotificationId);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JSONObject data = notification.payload.additionalData;
+
+        /*JSONObject data = notification.payload.additionalData;
         String sentByName  = null, sentByID = null, sentByUserRole = null, clientID = null, recordID = null;
 
         if (data != null) {
@@ -48,7 +49,7 @@ public class NotificationReceivedHandler implements OneSignal.NotificationReceiv
                 notificationBox.setSentByUserRole(sentByUserRole);
                 notificationBox.setRecordID(recordID);
                 Log.e("OneSignalExample", "customkey set with value: " + notificationBox.toString());
-                notificationBoxBox.put(notificationBox);
+                //notificationBoxBox.put(notificationBox);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -57,5 +58,6 @@ public class NotificationReceivedHandler implements OneSignal.NotificationReceiv
             //Log.i("OneSignalExample", "NotificationBox size: " + notificationBoxBox.getAll().size());
 
         }
+    */
     }
 }

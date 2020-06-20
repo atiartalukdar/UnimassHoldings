@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
+import info.atiar.unimassholdings.notification.DisplayAllNotification;
 import retrofit.APIInterface;
 import retrofit.RetrofitClientInstance;
 import retrofit2.Call;
@@ -44,7 +45,8 @@ public class NotificationOpenedHandler implements OneSignal.NotificationOpenedHa
 
         try {
             Log.e("OSNotificationPayload", "result.notification.payload.toJSONObject().toString(): " + result.notification.payload.additionalData.getString("clientID").toString());
-            loadClientProfile(result.notification.payload.additionalData.getString("clientID"));
+            //loadClientProfile(result.notification.payload.additionalData.getString("clientID"));
+            loadNotificationDisplayActivity();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -72,6 +74,13 @@ public class NotificationOpenedHandler implements OneSignal.NotificationOpenedHa
           <meta-data android:name="com.onesignal.NotificationOpened.DEFAULT" android:value="DISABLE" />
         </application>
      */
+    }
+
+    private void loadNotificationDisplayActivity() {
+        Intent intent = new Intent(context, DisplayAllNotification.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.putExtra("memberDetails",data);
+        context.startActivity(intent);
     }
 
     private void loadClientProfile(String clientID) {

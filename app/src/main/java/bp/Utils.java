@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import info.atiar.unimassholdings.R;
@@ -108,6 +111,12 @@ public class Utils {
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization","Basic NTZmNWZiYTctNmNiYi00NTUwLWI5YWItMjgwMDdiNGFiNDRm");
         return  headers;
+    }
+
+    public static String getCurrentDateTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy_HH:mm:ss", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
+        return currentDateandTime;
     }
 
 }
