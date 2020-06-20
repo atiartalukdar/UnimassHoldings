@@ -114,7 +114,7 @@ public class Utils {
     }
 
     public static String getCurrentDateTime(){
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy_HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String currentDateandTime = sdf.format(new Date());
         return currentDateandTime;
     }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +39,9 @@ import retrofit2.Retrofit;
 import session.Session;
 
 
-public class NotificationListAdapter extends BaseAdapter {
+public class NotificationListAdapter extends RecyclerView.Adapter<NotificationListAdapter.MyViewHolder> {
     private Context context;
     private Activity activity;
-    private LayoutInflater inflater;
     private List<NotificationBox> notificationList;
 
     private final String TAG = getClass().getSimpleName() + " Atiar= ";
@@ -53,64 +53,52 @@ public class NotificationListAdapter extends BaseAdapter {
     public NotificationListAdapter(Activity activity, List<NotificationBox> notificationList) {
         this.activity = activity;
         this.notificationList = notificationList;
-    }
-
-    @Override
-    public int getCount() {
-        return notificationList.size();
-    }
-
-    @Override
-    public Object getItem(int location) {
-        return notificationList.get(location);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
         context = activity.getApplicationContext();
+    }
 
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.custom_notification_list_item, parent, false);
+
+        return new MyViewHolder(itemView);
+    }
+
+
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
         // getting lead data for the row
         final NotificationBox data = notificationList.get(position);
 
-        if (inflater == null)
-            inflater = (LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null)
-            convertView = inflater.inflate(R.layout.custom_notification_list_item, null);
-
-
-        CardView         _item      = convertView.findViewById(R.id.custom_notification_item);
-        TextView        _id         = convertView.findViewById(R.id.custom_notification_id);
-        TextView        _date       = convertView.findViewById(R.id.custom_notification_date);
-        TextView        _note       = convertView.findViewById(R.id.custom_notification_note);
-
-
-        _id.setText(data.getTitle()+"");
-        _date.setText(data.getDate()+"");
-        _note.setText(data.getMessage());
+        holder._id.setText(data.getTitle()+"");
+        holder._date.setText(data.getDate()+"");
+        holder._note.setText(data.getMessage()+"");
 
         if (data.getIsRead().equals("0")){
-            _item.setCardBackgroundColor(activity.getResources().getColor(R.color.background));
+            holder._item.setCardBackgroundColor(activity.getResources().getColor(R.color.background));
         }else{
-            _item.setCardBackgroundColor(activity.getResources().getColor(R.color.colorWhite));
+            holder._item.setCardBackgroundColor(activity.getResources().getColor(R.color.colorWhite));
         }
 
 
-
         //Item button
-        _item.setOnClickListener(new View.OnClickListener() {
+        holder._item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadClientProfile(position, data.getClientID()+"");
+                loadClientProfile(data, data.getClientID()+"");
             }
         });
-        return convertView;
 
+    }
+
+
+    @Override
+    public int getItemCount() {
+        if (notificationList == null) {
+            return 0;
+        }
+
+        return notificationList.size();
     }
 
     //To update the searchView items in TransportList Activity
@@ -120,14 +108,13 @@ public class NotificationListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    private void loadClientProfile(int pos, String clientID) {
+    private void loadClientProfile(NotificationBox  notificationBox, String clientID) {
 
         SweetAlertDialog pDialog = new SweetAlertDialog(activity, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setTitleText("Loading...");
         pDialog.setCancelable(false);
         pDialog.show();
-        NotificationBox notificationBox = testBox.get(pos);
 
         retrofit = RetrofitClientInstance.getRetrofitInstance();
         apiInterface = retrofit.create(APIInterface.class);
@@ -141,15 +128,14 @@ public class NotificationListAdapter extends BaseAdapter {
                  */
                 pDialog.cancel();
                 if (response.isSuccessful()) {
-                    Log.e(TAG, "position - "+pos);
                     notificationBox.setIsRead("1");
                     testBox.put(notificationBox);
 
-                    Intent intent = new Intent(context, ClientDetails.class);
+                    Intent intent = new Intent(activity, ClientDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.putExtra("memberDetails",data);
                     intent.putExtra("memberProfile", response.body());
-                    context.startActivity(intent);
+                    activity.startActivity(intent);
                 }
 
             }
@@ -157,7 +143,7 @@ public class NotificationListAdapter extends BaseAdapter {
             @Override
             public void onFailure(Call call, Throwable t) {
                 pDialog.cancel();
-                Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -165,5 +151,31 @@ public class NotificationListAdapter extends BaseAdapter {
 
     }
 
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
+        CardView         _item     ;
+        TextView        _id        ;
+        TextView        _date      ;
+        TextView        _note      ;
+
+        LinearLayout _leadListItem;
+
+        public MyViewHolder(View convertView) {
+            super(convertView);
+              _item  = convertView.findViewById(R.id.custom_notification_item);
+             _id     = convertView.findViewById(R.id.custom_notification_id);
+             _date   = convertView.findViewById(R.id.custom_notification_date);
+             _note   = convertView.findViewById(R.id.custom_notification_note);
+        }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

@@ -37,9 +37,7 @@ public class NotificationExtender extends NotificationExtenderService {
                 sentByUserRole = data.getString("sentByUserRole");
                 clientID = data.getString("clientID");
                 recordID = data.getString("recordID");
-               // Log.e("OneSignalExample", "customkey set with value: " + data.toString());
 
-                // notificationBox = new NotificationBox(sentByName,sentByID,sentByUserRole,clientID,recordID, notification.payload.title, notification.payload.body);
                 notificationBox.setClientID(clientID);
                 notificationBox.setSentByName(sentByName);
                 notificationBox.setSentByID(sentByID);

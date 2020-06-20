@@ -1,6 +1,10 @@
 package info.atiar.unimassholdings.notification;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -24,8 +28,11 @@ import objectBox.ScheduleBox;
 import objectBox.ScheduleBox_;
 
 public class DisplayAllNotification extends AppCompatActivity {
-    @BindView(R.id.leadList)    ListView _notificationList;
+    @BindView(R.id.recylerView)    RecyclerView _recylerView;
+    @BindView(R.id.pullToRefresh)    SwipeRefreshLayout _pullToRefresh;
+
     NotificationListAdapter adapter;
+
 
     Box<NotificationBox> notificationBoxBox;
     List<NotificationBox> notificationList = new ArrayList<>();
@@ -37,8 +44,15 @@ public class DisplayAllNotification extends AppCompatActivity {
         notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
         notificationList = notificationBoxBox.query().order(NotificationBox_.recordID, QueryBuilder.DESCENDING).build().find();
 
-        adapter = new NotificationListAdapter(this, notificationList);
-        _notificationList.setAdapter(adapter);
+        initializeList();
+
+        _pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initializeList();
+                _pullToRefresh.setRefreshing(false);
+            }
+        });
 
         int unreadNotification=0;
         for (NotificationBox notificationBox :  notificationList){
@@ -48,6 +62,16 @@ public class DisplayAllNotification extends AppCompatActivity {
         }
         getSupportActionBar().setTitle("Unread Notification (" + unreadNotification+ ")");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void initializeList() {
+        adapter = new NotificationListAdapter(DisplayAllNotification.this, notificationList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        _recylerView.setLayoutManager(mLayoutManager);
+        _recylerView.setItemAnimator(new DefaultItemAnimator());
+        adapter.setHasStableIds(true);
+        _recylerView.setAdapter(adapter);
+
     }
 
     @Override
