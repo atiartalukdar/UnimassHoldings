@@ -19,6 +19,7 @@
         android:id="@+id/app_bar_new_lead"
         android:icon="@drawable/ic_person_add_black_24dp"
         android:title="New Lead"
+        android:visible="false"
         app:showAsAction="always" />
 
 </menu>

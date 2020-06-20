@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,6 +90,36 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
         });
 
+        //Item button
+        holder._delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SweetAlertDialog sweetAlertDialog   = new SweetAlertDialog(activity, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure?")
+                        .setContentText("Won't be able to recover this after delete!")
+                        .setConfirmText("Yes,delete it!")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                                testBox.remove(data);
+                                notificationList.remove(data);
+
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        });
+
+                sweetAlertDialog.show();
+
+            }
+        });
+
     }
 
 
@@ -130,6 +161,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 if (response.isSuccessful()) {
                     notificationBox.setIsRead("1");
                     testBox.put(notificationBox);
+                    notifyDataSetChanged();
 
                     Intent intent = new Intent(activity, ClientDetails.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -157,6 +189,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         TextView        _id        ;
         TextView        _date      ;
         TextView        _note      ;
+        ImageButton _delete      ;
 
         LinearLayout _leadListItem;
 
@@ -166,6 +199,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
              _id     = convertView.findViewById(R.id.custom_notification_id);
              _date   = convertView.findViewById(R.id.custom_notification_date);
              _note   = convertView.findViewById(R.id.custom_notification_note);
+             _delete   = convertView.findViewById(R.id.custom_notification_delete);
         }
     }
 

@@ -32,7 +32,7 @@ public class DisplayAllNotification extends AppCompatActivity {
     @BindView(R.id.pullToRefresh)    SwipeRefreshLayout _pullToRefresh;
 
     NotificationListAdapter adapter;
-
+    int unreadNotification=0;
 
     Box<NotificationBox> notificationBoxBox;
     List<NotificationBox> notificationList = new ArrayList<>();
@@ -42,19 +42,6 @@ public class DisplayAllNotification extends AppCompatActivity {
         setContentView(R.layout.activity_display_all_notification);
         ButterKnife.bind(this);
         notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
-        notificationList = notificationBoxBox.query().order(NotificationBox_.recordID, QueryBuilder.DESCENDING).build().find();
-
-        initializeList();
-
-        _pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                initializeList();
-                _pullToRefresh.setRefreshing(false);
-            }
-        });
-
-        int unreadNotification=0;
         for (NotificationBox notificationBox :  notificationList){
             if (notificationBox.getIsRead().equals("0")){
                 unreadNotification++;
@@ -62,15 +49,31 @@ public class DisplayAllNotification extends AppCompatActivity {
         }
         getSupportActionBar().setTitle("Unread Notification (" + unreadNotification+ ")");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        initializeList();
+
+        _pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initializeList();
+                getSupportActionBar().setTitle("Unread Notification (" + unreadNotification+ ")");
+                _pullToRefresh.setRefreshing(false);
+            }
+        });
+
+
     }
 
     private void initializeList() {
+        notificationList = notificationBoxBox.query().order(NotificationBox_.recordID, QueryBuilder.DESCENDING).build().find();
         adapter = new NotificationListAdapter(DisplayAllNotification.this, notificationList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         _recylerView.setLayoutManager(mLayoutManager);
         _recylerView.setItemAnimator(new DefaultItemAnimator());
         adapter.setHasStableIds(true);
         _recylerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 
