@@ -1,14 +1,18 @@
 package info.atiar.unimassholdings.clients.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import bp.TimeUtils;
 import bp.Utils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +21,13 @@ import butterknife.Unbinder;
 import info.atiar.unimassholdings.R;
 import info.atiar.unimassholdings.clients.ClientDetails;
 import info.atiar.unimassholdings.dataModel.ClientProfileDM;
+import retrofit.APIInterface;
+import retrofit.APIManager;
+import retrofit.RetrofitClientInstance;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import session.Session;
 
 /**
@@ -24,6 +35,10 @@ import session.Session;
  */
 
 public class Requirements extends Fragment {
+    private final String TAG = getClass().getName() + " Atiar - ";
+    APIManager _apiManager = new APIManager();
+    Retrofit retrofit;
+    APIInterface apiInterface;
 
     @BindView(R.id.reqArea)            EditText _reqArea;
     @BindView(R.id.reqLandSize)        EditText _reqLandSize;
@@ -50,6 +65,8 @@ public class Requirements extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         reqInfo = ((ClientDetails) getActivity()).getMemberProfile().getReqInfo();
+        retrofit = RetrofitClientInstance.getRetrofitInstance();
+        apiInterface = retrofit.create(APIInterface.class);
     }
 
     @Override
@@ -141,4 +158,39 @@ public class Requirements extends Fragment {
 
         }
     }
+
+/*
+    private void updateRequirements(String cliendID, String landOwnerName, String address, String mobile, String email, String profession,
+                                   String designation, String businessAddress, String reference, String refMobile) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Updating Requirements...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+
+        Call call = apiInterface.addClientRequirement(
+                Session.getSeassionData().getEmail(), Session.getPassword(), Session.getUserRole(), cliendID, TimeUtils.getToday(), );
+
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    // Log.e(TAG, response.body().toString());
+                    Toast.makeText(getContext(), response.body().toString(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                //Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, t.getMessage());
+                progressDialog.dismiss();
+            }
+
+        });
+
+    }*/
 }

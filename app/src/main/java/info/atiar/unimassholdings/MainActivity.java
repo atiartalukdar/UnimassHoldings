@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.email)    EditText _email;
     @BindView(R.id.password)    EditText _password;
 
-
     Retrofit retrofit;
     APIInterface apiInterface;
 
