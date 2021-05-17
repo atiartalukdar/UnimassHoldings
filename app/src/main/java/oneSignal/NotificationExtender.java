@@ -7,6 +7,7 @@ import androidx.core.app.NotificationCompat;
 import com.onesignal.NotificationExtenderService;
 import com.onesignal.OSNotificationDisplayedResult;
 import com.onesignal.OSNotificationReceivedResult;
+import com.onesignal.OneSignal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,12 +48,16 @@ public class NotificationExtender extends NotificationExtenderService {
                 notificationBox.setTitle(title);
                 notificationBox.setMessage(body);
                 Log.e(tag, "OneSignal Notification Data: " + notificationBox.toString());
-                notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
-                notificationBoxBox.put(notificationBox);
+
+                if (!sentByID.equals(Session.getSeassionData().getId().toString())) {
+                    notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
+                    notificationBoxBox.put(notificationBox);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.e(tag, "ObjectBox size: " + notificationBoxBox.getAll().size() +"");
+            //Log.e(tag, "ObjectBox size: " + notificationBoxBox.getAll().size() +"");
            // notificationBoxBox.removeAll();
 
         }

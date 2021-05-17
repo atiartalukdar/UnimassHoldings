@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -42,22 +43,20 @@ public class DisplayAllNotification extends AppCompatActivity {
         setContentView(R.layout.activity_display_all_notification);
         ButterKnife.bind(this);
         notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
-        for (NotificationBox notificationBox :  notificationList){
-            if (notificationBox.getIsRead().equals("0")){
-                unreadNotification++;
-            }
-        }
-        getSupportActionBar().setTitle("Unread Notification (" + unreadNotification+ ")");
+        initializeList();
+
+        //getSupportActionBar().setTitle("Notifications");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Log.e("notifications - ", unreadNotification + " ");
 
-        initializeList();
 
         _pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 initializeList();
                 getSupportActionBar().setTitle("Unread Notification (" + unreadNotification+ ")");
+                //getSupportActionBar().setTitle("Notifications");
                 _pullToRefresh.setRefreshing(false);
             }
         });
@@ -66,7 +65,9 @@ public class DisplayAllNotification extends AppCompatActivity {
     }
 
     private void initializeList() {
-        notificationList = notificationBoxBox.query().order(NotificationBox_.recordID, QueryBuilder.DESCENDING).build().find();
+        unreadNotification = 0;
+        //notificationList = notificationBoxBox.query().order(NotificationBox_.recordID, QueryBuilder.DESCENDING).build().find();
+        notificationList = notificationBoxBox.getAll();
         adapter = new NotificationListAdapter(DisplayAllNotification.this, notificationList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         _recylerView.setLayoutManager(mLayoutManager);
@@ -74,6 +75,15 @@ public class DisplayAllNotification extends AppCompatActivity {
         adapter.setHasStableIds(true);
         _recylerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        for (NotificationBox notificationBox :  notificationList){
+            if (notificationBox.getIsRead().equals("0")){
+                unreadNotification++;
+            }
+        }
+        getSupportActionBar().setTitle("Unread Notification (" + unreadNotification+ ")");
+        //getSupportActionBar().setTitle("Unread Notification (" + unreadNotification+ ")");
+
 
     }
 
@@ -98,5 +108,8 @@ public class DisplayAllNotification extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
+        initializeList();
     }
+
+
 }

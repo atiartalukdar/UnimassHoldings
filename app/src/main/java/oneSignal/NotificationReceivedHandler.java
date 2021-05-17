@@ -21,6 +21,9 @@ public class NotificationReceivedHandler implements OneSignal.NotificationReceiv
     public void notificationReceived(OSNotification notification) {
         //Box<NotificationBox> notificationBoxBox = ObjectBox.get().boxFor(NotificationBox.class);
         //NotificationBox notificationBox = new NotificationBox();
+        Log.e("OneSignalExample", "customkey set with value: " + notification.payload.additionalData.toString());
+        Log.e("OneSignalExample", "Session value: " + Session.getSeassionData().getId().toString());
+
         try {
             if (notification.payload.additionalData.getString("sentByID").equals(Session.getSeassionData().getId().toString())) {
                 OneSignal.setInFocusDisplaying(0);
